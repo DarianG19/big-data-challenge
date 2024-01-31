@@ -1,7 +1,7 @@
-def print_hi(name):
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+from readFiles import read_files
+from readFiles import createDiagram
 
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+     read_files('./dataset')
+
+     # createDiagram(graph_data[0], graph_data[1])
