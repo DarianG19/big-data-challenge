@@ -22,16 +22,25 @@ def read_files(path):
             try:
                 f = h5py.File('{}'.format(file_path), 'r')
                 list(f.keys())
-                dsetGroup = f['data']
+
+                # Überprüfen, ob 'data' oder 'Daten' vorhanden ist
+                if 'data' in f:
+                    dsetGroup = f['data']
+                elif 'Daten' in f:
+                    dsetGroup = f['Daten']
+                else:
+                    print("Weder 'data' noch 'Daten' in der Datei '{}'. Überspringe...".format(file_name))
+                    continue
+
                 # group_x = np.arange(1, 1001)
                 dset_list = []
                 for dset in dsetGroup:
                     dset_list.append(dset)
                     # group_y = np.array(dsetGroup[dset])
 
-                print(dset_list)
+                #print(dset_list)
             except Exception as e: # TODO: Aktuell werden jegliche Fehler abgefangen, muss spezifischer werden, um "fehlerhafte" Dateien/Daten dennoch auszulesen
-                print("Allgemeiner Fehler")
+                print("Fehler beim Lesen der Datei '{}': {}".format(file_name, str(e)))
                 continue
         else:
             print("{} skipped ... ".format(file_path))
