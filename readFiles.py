@@ -38,7 +38,7 @@ def read_files(path):
                     dset_list.append(dset)
                     # group_y = np.array(dsetGroup[dset])
 
-                #print(dset_list)
+                print(dset_list)
             except Exception as e: # TODO: Aktuell werden jegliche Fehler abgefangen, muss spezifischer werden, um "fehlerhafte" Dateien/Daten dennoch auszulesen
                 print("Fehler beim Lesen der Datei '{}': {}".format(file_name, str(e)))
                 continue
