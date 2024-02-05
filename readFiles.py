@@ -40,7 +40,7 @@ def read_files(path):
 
                 print(dset_list)
             except Exception as e: # TODO: Aktuell werden jegliche Fehler abgefangen, muss spezifischer werden, um "fehlerhafte" Dateien/Daten dennoch auszulesen
-                print(f"Fehler beim Lesen der Datei '{file_name}': {e}")
+                print(f"Fehler beim Lesen der Datei! '{file_name}': {e}")
                 continue
         else:
             print(f"{file_path} skipped ... ")
