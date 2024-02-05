@@ -29,7 +29,7 @@ def read_files(path):
                 elif 'Daten' in f:
                     dsetGroup = f['Daten']
                 else:
-                    print("Weder 'data' noch 'Daten' in der Datei '{}'. Überspringe...".format(file_name))
+                    print(f"Weder 'data' noch 'Daten' in der Datei '{file_name}'. Überspringe...")
                     continue
 
                 # group_x = np.arange(1, 1001)
@@ -40,10 +40,10 @@ def read_files(path):
 
                 print(dset_list)
             except Exception as e: # TODO: Aktuell werden jegliche Fehler abgefangen, muss spezifischer werden, um "fehlerhafte" Dateien/Daten dennoch auszulesen
-                print("Fehler beim Lesen der Datei '{}': {}".format(file_name, str(e)))
+                print(f"Fehler beim Lesen der Datei '{file_name}': {e}")
                 continue
         else:
-            print("{} skipped ... ".format(file_path))
+            print(f"{file_path} skipped ... ")
 
 
 def createDiagram(x_array, y_array):
