@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import os
 from datetime import datetime
 
+from utils.format_strings import format_dataset
+
 
 def read_files(path):
     """
@@ -20,26 +22,29 @@ def read_files(path):
         if os.path.isfile(file_path):
 
             try:
-                f = h5py.File('{}'.format(file_path), 'r')
+                f = h5py.File(f'{file_path}', 'r')
                 list(f.keys())
 
                 # Überprüfen, ob 'data' oder 'Daten' vorhanden ist
                 if 'data' in f:
-                    dsetGroup = f['data']
+                    dataset_group = f['data']
                 elif 'Daten' in f:
-                    dsetGroup = f['Daten']
+                    dataset_group = f['Daten']
                 else:
                     print(f"Weder 'data' noch 'Daten' in der Datei '{file_name}'. Überspringe...")
                     continue
 
                 # group_x = np.arange(1, 1001)
-                dset_list = []
-                for dset in dsetGroup:
-                    dset_list.append(dset)
-                    # group_y = np.array(dsetGroup[dset])
+                dataset_list = []
+                for dataset in dataset_group:
+                    formatted_dataset = format_dataset(dataset)
 
-                print(dset_list)
-            except Exception as e: # TODO: Aktuell werden jegliche Fehler abgefangen, muss spezifischer werden, um "fehlerhafte" Dateien/Daten dennoch auszulesen
+                    dataset_list.append(formatted_dataset)
+                    # group_y = np.array(dataset_group[dataset])
+
+                print(dataset_list)
+            except Exception as e:  # TODO: Aktuell werden jegliche Fehler abgefangen, muss spezifischer werden,
+                # um "fehlerhafte" Dateien/Daten dennoch auszulesen
                 print(f"Fehler beim Lesen der Datei! '{file_name}': {e}")
                 continue
         else:
