@@ -4,23 +4,22 @@ import matplotlib.pyplot as plt
 import os
 from datetime import datetime
 
-from utils.format_strings import format_dataset
+from utils.format_strings import format_string
 
 
 def read_files(path):
-    """
-    Funktion zum Einlesen der Dateien in einem bestimmten Pfad.
-    :param path: Der Pfad zum jeweiligen Ordner
-    :return:
-    """
+    count_files = 0
+    data_regions = {}
+    data_instruments = {}
+    regions_with_instruments = {}
 
     # Iterate through files in folder
     for file_name in os.listdir(path):
+        count_files += 1
         file_path = os.path.join(path, file_name)
 
         # Check, if file_path is a file and not a folder
         if os.path.isfile(file_path):
-
             try:
                 f = h5py.File(f'{file_path}', 'r')
                 list(f.keys())
@@ -34,24 +33,55 @@ def read_files(path):
                     print(f"Weder 'data' noch 'Daten' in der Datei '{file_name}'. Überspringe...")
                     continue
 
+                region_name = format_string(dataset_group.attrs.get("configuration"))
+                instrument_name = format_string(dataset_group.attrs.get("instrument"))
+
+                # Regionen und Instrumente werden allgemein gezaehlt
+                if region_name in data_regions:
+                    data_regions[region_name] += 1
+                else:
+                    data_regions[region_name] = 1
+
+                if instrument_name in data_instruments:
+                    data_instruments[instrument_name] += 1
+                else:
+                    data_instruments[instrument_name] = 1
+
+                # Instrumente werden zu den entsprechenden Regionen gezaehlt
+                if region_name not in regions_with_instruments:
+                    regions_with_instruments[region_name] = {instrument_name: 1}
+                elif instrument_name not in regions_with_instruments[region_name]:
+                    regions_with_instruments[region_name][instrument_name] = 1
+                else:
+                    regions_with_instruments[region_name][instrument_name] += 1
+
                 # group_x = np.arange(1, 1001)
                 dataset_list = []
                 for dataset in dataset_group:
-                    formatted_dataset = format_dataset(dataset)
-
+                    formatted_dataset = format_string(dataset)
                     dataset_list.append(formatted_dataset)
-                    # group_y = np.array(dataset_group[dataset])
 
-                print(dataset_list)
-            except Exception as e:  # TODO: Aktuell werden jegliche Fehler abgefangen, muss spezifischer werden,
-                # um "fehlerhafte" Dateien/Daten dennoch auszulesen
+            except Exception as e:
                 print(f"Fehler beim Lesen der Datei! '{file_name}': {e}")
                 continue
         else:
             print(f"{file_path} skipped ... ")
 
+    print(f"Anzahl der Dateien, die durchlaufen werden: {count_files}")
+    print(f"Regionen: {data_regions}")
+    print(f"Instrumente: {data_instruments}", end="\n\n")
 
-def createDiagram(x_array, y_array):
+    for region in regions_with_instruments:
+        sum_of_instruments_per_region = sum(regions_with_instruments[region].values())
+        print(f"{region.upper()}")
+        for instrument, count in regions_with_instruments[region].items():
+            print(f"{instrument}: {count}")
+        print(f"SUM: {sum_of_instruments_per_region}")
+        print("---------------")
+
+
+
+def create_diagram(x_array, y_array):
     """
     Funktion zum Erstellen von Graphen (aktuell Plots)
     :param x_array: Datenset für die Abszisse
