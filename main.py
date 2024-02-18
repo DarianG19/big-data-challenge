@@ -1,17 +1,20 @@
 from readFiles import read_files
 from readFiles import createDiagram
-from pymongo import MongoClient
 
-mongo_uri = "mongodb+srv://<noahkuse>:<BigDMitBigD>@bigdataproject.f6aka7m.mongodb.net/"
-client = MongoClient(mongo_uri)
-db = client.bigdataproject  # Ändere 'mydatabase' entsprechend deiner Datenbank
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 
+uri = "mongodb+srv://noahkuse:BigDMitBigD@bigdataproject.f6aka7m.mongodb.net/?retryWrites=true&w=majority"
+
+# Create a new client and connect to the server
+client = MongoClient(uri, server_api=ServerApi('1'))
+
+# Send a ping to confirm a successful connection
 try:
-    # Einfache Abfrage, um sicherzustellen, dass die Verbindung funktioniert
-    result = db.mycollection.find_one()
-    print("Verbindung erfolgreich. Beispiel-Dokument:", result)
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
 except Exception as e:
-    print(f"Fehler bei der Datenbankabfrage: {e}")
+    print(e)
 
 
 #if __name__ == '__main__':
