@@ -1,5 +1,4 @@
 from readFiles import read_files
-from readFiles import createDiagram
 
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
@@ -17,7 +16,9 @@ except Exception as e:
     print(e)
 
 
-if __name__ == '__main__':
-     read_files('./dataset/dataset')
+def main():
+    read_files('./dataset')
 
-     #createDiagram(graph_data[0], graph_data[1])
+
+if __name__ == '__main__':
+    main()
