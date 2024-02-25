@@ -1,5 +1,4 @@
 from readFiles import read_files
-
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
@@ -14,7 +13,6 @@ try:
     print("Pinged your deployment. You successfully connected to MongoDB!")
 except Exception as e:
     print(e)
-
 
 def main():
     read_files('./dataset')
