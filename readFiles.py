@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 from datetime import datetime
+from insertDataInMongoDB import insert_into_mongodb
 
 from utils.format_strings import format_string
 
@@ -55,6 +56,9 @@ def read_files(path):
                 else:
                     regions_with_instruments[region_name][instrument_name] += 1
 
+                # Rufe die Funktion auf, um die Daten in MongoDB einzufügen
+                insert_into_mongodb(region_name, instrument_name, regions_with_instruments[region_name][instrument_name])
+
                 # group_x = np.arange(1, 1001)
                 dataset_list = []
                 for dataset in dataset_group:
@@ -78,8 +82,6 @@ def read_files(path):
             print(f"{instrument}: {count}")
         print(f"SUM: {sum_of_instruments_per_region}")
         print("---------------")
-
-
 
 def create_diagram(x_array, y_array):
     """
