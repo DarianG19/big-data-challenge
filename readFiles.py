@@ -1,10 +1,7 @@
 import h5py
-import numpy as np
 import matplotlib.pyplot as plt
 import os
-from datetime import datetime
 from insertDataInMongoDB import insert_into_mongodb
-
 from utils.format_strings import format_string
 
 
@@ -13,13 +10,14 @@ def read_files(path):
     data_regions = {}
     data_instruments = {}
     regions_with_instruments = {}
+    data_list = []
 
-    # Iterate through files in folder
+    # Iterate durch Dateien im Ordner
     for file_name in os.listdir(path):
         count_files += 1
         file_path = os.path.join(path, file_name)
 
-        # Check, if file_path is a file and not a folder
+        # Überprüfen, ob file_path eine Datei und kein Ordner ist
         if os.path.isfile(file_path):
             try:
                 f = h5py.File(f'{file_path}', 'r')
@@ -37,7 +35,7 @@ def read_files(path):
                 region_name = format_string(dataset_group.attrs.get("configuration"))
                 instrument_name = format_string(dataset_group.attrs.get("instrument"))
 
-                # Regionen und Instrumente werden allgemein gezaehlt
+                # Regionen und Instrumente werden allgemein gezählt
                 if region_name in data_regions:
                     data_regions[region_name] += 1
                 else:
@@ -48,7 +46,7 @@ def read_files(path):
                 else:
                     data_instruments[instrument_name] = 1
 
-                # Instrumente werden zu den entsprechenden Regionen gezaehlt
+                # Instrumente werden zu den entsprechenden Regionen gezählt
                 if region_name not in regions_with_instruments:
                     regions_with_instruments[region_name] = {instrument_name: 1}
                 elif instrument_name not in regions_with_instruments[region_name]:
@@ -56,20 +54,30 @@ def read_files(path):
                 else:
                     regions_with_instruments[region_name][instrument_name] += 1
 
-                # Rufe die Funktion auf, um die Daten in MongoDB einzufügen
-                insert_into_mongodb(region_name, instrument_name, regions_with_instruments[region_name][instrument_name])
-
-                # group_x = np.arange(1, 1001)
-                dataset_list = []
-                for dataset in dataset_group:
-                    formatted_dataset = format_string(dataset)
-                    dataset_list.append(formatted_dataset)
+                # Füge die Daten zur Batch-Liste hinzu
+                data_list.append({
+                    'region': region_name,
+                    'instrument': instrument_name,
+                    'count': regions_with_instruments[region_name][instrument_name]
+                })
 
             except Exception as e:
                 print(f"Fehler beim Lesen der Datei! '{file_name}': {e}")
                 continue
         else:
             print(f"{file_path} skipped ... ")
+
+        # Überprüfe, ob genügend Daten für einen Batch vorhanden sind (z.B., 100 Dokumente pro Batch)
+        if len(data_list) >= 100:
+            # Rufe die Funktion auf, um die Daten in MongoDB als Batch einzufügen
+            # (auskommentiert, müssen ja nicht immer die Daten einfügen)
+            # insert_into_mongodb(data_list)
+            # Leere die Liste für den nächsten Batch
+            data_list = []
+
+    # Am Ende der Schleife füge die verbleibenden Daten ein
+    if data_list:
+        insert_into_mongodb(data_list)
 
     print(f"Anzahl der Dateien, die durchlaufen werden: {count_files}")
     print(f"Regionen: {data_regions}")
@@ -82,6 +90,7 @@ def read_files(path):
             print(f"{instrument}: {count}")
         print(f"SUM: {sum_of_instruments_per_region}")
         print("---------------")
+
 
 def create_diagram(x_array, y_array):
     """
