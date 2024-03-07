@@ -1,10 +1,57 @@
 import h5py
-import numpy as np
-import matplotlib.pyplot as plt
 import os
-from datetime import datetime
-
 from utils.format_strings import format_string
+
+
+def list_files_in_path(path):
+    # Listet alle Dateien im angegebenen Pfad auf
+    return [os.path.join(path, file_name) for file_name in os.listdir(path) if
+            os.path.isfile(os.path.join(path, file_name))]
+
+
+def read_file(file_path):
+    try:
+        with h5py.File(file_path, 'r') as f:
+            # Überprüfen, ob 'data' oder 'Daten' vorhanden ist
+            if 'data' in f:
+                dataset_group = f['data']
+            elif 'Daten' in f:
+                dataset_group = f['Daten']
+            else:
+                return None, None, f"Weder 'data' noch 'Daten' in der Datei '{os.path.basename(file_path)}'. Überspringe..."
+
+            region_name = format_string(dataset_group.attrs.get("configuration", ""))
+            instrument_name = format_string(dataset_group.attrs.get("instrument", ""))
+            return region_name, instrument_name, None
+    except Exception as e:
+        return None, None, f"Fehler beim Lesen der Datei! '{os.path.basename(file_path)}': {e}"
+
+
+def update_counts(region_name, instrument_name, data_regions, data_instruments, regions_with_instruments):
+    if region_name:
+        # Regionen und Instrumente werden allgemein gezaehlt
+        data_regions[region_name] = data_regions.get(region_name, 0) + 1
+        data_instruments[instrument_name] = data_instruments.get(instrument_name, 0) + 1
+
+        # Instrumente werden zu den entsprechenden Regionen gezaehlt
+        if region_name not in regions_with_instruments:
+            regions_with_instruments[region_name] = {}
+        regions_with_instruments[region_name][instrument_name] = regions_with_instruments[region_name].get(
+            instrument_name, 0) + 1
+
+
+def print_summary(count_files, data_regions, data_instruments, regions_with_instruments):
+    print(f"Anzahl der Dateien, die durchlaufen werden: {count_files}")
+    print(f"Regionen: {data_regions}")
+    print(f"Instrumente: {data_instruments}", end="\n\n")
+
+    for region, instruments in regions_with_instruments.items():
+        sum_of_instruments_per_region = sum(instruments.values())
+        print(f"{region.upper()}")
+        for instrument, count in instruments.items():
+            print(f"{instrument}: {count}")
+        print(f"SUM: {sum_of_instruments_per_region}")
+        print("---------------")
 
 
 def read_files(path):
@@ -13,84 +60,15 @@ def read_files(path):
     data_instruments = {}
     regions_with_instruments = {}
 
-    # Iterate through files in folder
-    for file_name in os.listdir(path):
+    file_paths = list_files_in_path(path)
+    for file_path in file_paths:
         count_files += 1
-        file_path = os.path.join(path, file_name)
+        region_name, instrument_name, error_message = read_file(file_path)
+        if error_message:
+            print(error_message)
+            continue
 
-        # Check, if file_path is a file and not a folder
-        if os.path.isfile(file_path):
-            try:
-                f = h5py.File(f'{file_path}', 'r')
-                list(f.keys())
+        update_counts(region_name, instrument_name, data_regions, data_instruments, regions_with_instruments)
 
-                # Überprüfen, ob 'data' oder 'Daten' vorhanden ist
-                if 'data' in f:
-                    dataset_group = f['data']
-                elif 'Daten' in f:
-                    dataset_group = f['Daten']
-                else:
-                    print(f"Weder 'data' noch 'Daten' in der Datei '{file_name}'. Überspringe...")
-                    continue
+    print_summary(count_files, data_regions, data_instruments, regions_with_instruments)
 
-                region_name = format_string(dataset_group.attrs.get("configuration"))
-                instrument_name = format_string(dataset_group.attrs.get("instrument"))
-
-                # Regionen und Instrumente werden allgemein gezaehlt
-                if region_name in data_regions:
-                    data_regions[region_name] += 1
-                else:
-                    data_regions[region_name] = 1
-
-                if instrument_name in data_instruments:
-                    data_instruments[instrument_name] += 1
-                else:
-                    data_instruments[instrument_name] = 1
-
-                # Instrumente werden zu den entsprechenden Regionen gezaehlt
-                if region_name not in regions_with_instruments:
-                    regions_with_instruments[region_name] = {instrument_name: 1}
-                elif instrument_name not in regions_with_instruments[region_name]:
-                    regions_with_instruments[region_name][instrument_name] = 1
-                else:
-                    regions_with_instruments[region_name][instrument_name] += 1
-
-                # group_x = np.arange(1, 1001)
-                dataset_list = []
-                for dataset in dataset_group:
-                    formatted_dataset = format_string(dataset)
-                    dataset_list.append(formatted_dataset)
-
-            except Exception as e:
-                print(f"Fehler beim Lesen der Datei! '{file_name}': {e}")
-                continue
-        else:
-            print(f"{file_path} skipped ... ")
-
-    print(f"Anzahl der Dateien, die durchlaufen werden: {count_files}")
-    print(f"Regionen: {data_regions}")
-    print(f"Instrumente: {data_instruments}", end="\n\n")
-
-    for region in regions_with_instruments:
-        sum_of_instruments_per_region = sum(regions_with_instruments[region].values())
-        print(f"{region.upper()}")
-        for instrument, count in regions_with_instruments[region].items():
-            print(f"{instrument}: {count}")
-        print(f"SUM: {sum_of_instruments_per_region}")
-        print("---------------")
-
-
-
-def create_diagram(x_array, y_array):
-    """
-    Funktion zum Erstellen von Graphen (aktuell Plots)
-    :param x_array: Datenset für die Abszisse
-    :param y_array: Datenset für Ordinate
-    """
-    plt.plot(x_array, y_array)
-
-    plt.title('Diagramm')
-    plt.xlabel('')
-    plt.ylabel('Distance')
-
-    plt.show()
