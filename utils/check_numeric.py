@@ -1,24 +1,26 @@
+import re
+
+
 def check_if_numeric(wert):
-    # Überprüfen, ob der Wert numerisch ist
+    # Behandelt numerische Werte direkt
     if isinstance(wert, (int, float)):
         return True
-    else:
-        # Versuchen, den Wert in Float umzuwandeln, falls es sich um eine numerische Zeichenkette handelt
-        try:
-            float(wert)
+
+    # Dekodiert Bytes zu Strings
+    if isinstance(wert, bytes):
+        wert = wert.decode('utf-8')
+
+    # Ab hier ist 'wert' entweder ein String oder war ursprünglich ein String
+    try:
+        # Versucht, den Wert in eine Fließkommazahl zu konvertieren
+        float(wert)
+        return True
+    except ValueError:
+        # Überprüft, ob der Wert einem Timestamp-Format entspricht
+        timestamp_pattern = r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?.*$'
+
+        if re.match(timestamp_pattern, wert):
             return True
-        except ValueError:
-            # Eine Fehlermeldung ausgeben, wenn der Wert nicht numerisch ist
-            raise ValueError(f"Fehler: '{wert}' ist kein numerischer Wert.")
-
-
-# Beispiele zur Verwendung der Funktion
-try:
-    check_if_numeric(142.752)  # Sollte keinen Fehler ausgeben
-except ValueError as e:
-    print(e)
-
-try:
-    check_if_numeric("easteregg :)")  # Sollte eine Fehlermeldung ausgeben
-except ValueError as e:
-    print(e)
+        else:
+            # Gibt eine Fehlermeldung aus, wenn der Wert weder numerisch noch ein Timestamp ist
+            raise ValueError(f"Fehler: '{wert}' ist weder ein numerischer Wert noch ein gültiger Timestamp.")

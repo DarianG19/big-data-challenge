@@ -1,6 +1,7 @@
 import h5py
 import os
 from utils.format_strings import format_string
+from utils.check_numeric import check_if_numeric
 
 
 def list_files_in_path(path):
@@ -9,7 +10,7 @@ def list_files_in_path(path):
             os.path.isfile(os.path.join(path, file_name))]
 
 
-def read_file(file_path):
+def read_file(file_path, easter_egg_counter):
     try:
         with h5py.File(file_path, 'r') as f:
             # Überprüfen, ob 'data' oder 'Daten' vorhanden ist
@@ -18,13 +19,29 @@ def read_file(file_path):
             elif 'Daten' in f:
                 dataset_group = f['Daten']
             else:
-                return None, None, f"Weder 'data' noch 'Daten' in der Datei '{os.path.basename(file_path)}'. Überspringe..."
+                return None, None, easter_egg_counter, (
+                    f"Weder 'data' noch 'Daten' in der Datei '{os.path.basename(file_path)}'. "
+                    f"Überspringe...")
 
             region_name = format_string(dataset_group.attrs.get("configuration", ""))
             instrument_name = format_string(dataset_group.attrs.get("instrument", ""))
-            return region_name, instrument_name, None
+
+            # Prüfe jedes Dataset in der Datagroup auf numerische Werte
+            for dataset_name in dataset_group.keys():
+                dataset = dataset_group[dataset_name]
+                data = dataset[()]
+                for index, entry in enumerate(data):
+                    try:
+                        check_if_numeric(entry)
+                    except ValueError:
+                        easter_egg_counter += 1
+                        print(
+                            f"Das Dataset '{dataset_name}' am Index {index} in '{os.path.basename(file_path)}' hat einen nicht-numerischen Wert '{entry}'.")
+                        # TODO: Dateien entfernen aus dem gesamten Dataset
+
+            return region_name, instrument_name, easter_egg_counter, None
     except Exception as e:
-        return None, None, f"Fehler beim Lesen der Datei! '{os.path.basename(file_path)}': {e}"
+        return None, None, easter_egg_counter, f"Fehler beim Lesen der Datei! '{os.path.basename(file_path)}': {e}"
 
 
 def update_counts(region_name, instrument_name, data_regions, data_instruments, regions_with_instruments):
@@ -40,7 +57,7 @@ def update_counts(region_name, instrument_name, data_regions, data_instruments, 
             instrument_name, 0) + 1
 
 
-def print_summary(count_files, data_regions, data_instruments, regions_with_instruments):
+def print_summary(count_files, data_regions, data_instruments, regions_with_instruments, easter_egg_counter):
     print(f"Anzahl der Dateien, die durchlaufen werden: {count_files}")
     print(f"Regionen: {data_regions}")
     print(f"Instrumente: {data_instruments}", end="\n\n")
@@ -53,8 +70,11 @@ def print_summary(count_files, data_regions, data_instruments, regions_with_inst
         print(f"SUM: {sum_of_instruments_per_region}")
         print("---------------")
 
+    print(f"Easter Egg Counter: {easter_egg_counter}")
+
 
 def read_files(path):
+    easter_egg_counter = 0
     count_files = 0
     data_regions = {}
     data_instruments = {}
@@ -63,12 +83,11 @@ def read_files(path):
     file_paths = list_files_in_path(path)
     for file_path in file_paths:
         count_files += 1
-        region_name, instrument_name, error_message = read_file(file_path)
+        region_name, instrument_name, easter_egg_counter, error_message = read_file(file_path, easter_egg_counter)
         if error_message:
             print(error_message)
             continue
 
         update_counts(region_name, instrument_name, data_regions, data_instruments, regions_with_instruments)
 
-    print_summary(count_files, data_regions, data_instruments, regions_with_instruments)
-
+    print_summary(count_files, data_regions, data_instruments, regions_with_instruments, easter_egg_counter)
