@@ -1,7 +1,8 @@
 import h5py
 import matplotlib.pyplot as plt
 import os
-from insertDataInMongoDB import insert_into_mongodb
+from insertDataInMongoDB import insert_regioninstrument_into_mongodb
+from insertDataInMongoDB import insert_h5file_into_mongodb
 from utils.format_strings import format_string
 
 
@@ -70,14 +71,16 @@ def read_files(path):
         # Überprüfe, ob genügend Daten für einen Batch vorhanden sind (z.B., 100 Dokumente pro Batch)
         if len(data_list) >= 100:
             # Rufe die Funktion auf, um die Daten in MongoDB als Batch einzufügen
+
             # (auskommentiert, müssen ja nicht immer die Daten einfügen)
-            # insert_into_mongodb(data_list)
+            # insert_regioninstrument_into_mongodb
+
             # Leere die Liste für den nächsten Batch
             data_list = []
 
     # Am Ende der Schleife füge die verbleibenden Daten ein
     if data_list:
-        insert_into_mongodb(data_list)
+        insert_regioninstrument_into_mongodb(data_list)
 
     print(f"Anzahl der Dateien, die durchlaufen werden: {count_files}")
     print(f"Regionen: {data_regions}")
@@ -90,6 +93,29 @@ def read_files(path):
             print(f"{instrument}: {count}")
         print(f"SUM: {sum_of_instruments_per_region}")
         print("---------------")
+
+
+def read_and_insert_h5_file(file_path):
+    """
+    Diese Funktion liest eine einzelne h5-Datei ein und schreibt den Inhalt in eine MongoDB-Datenbank.
+    :param file_path: Der Pfad zur h5-Datei.
+    """
+    try:
+        with h5py.File(file_path, 'r') as f:
+            data_dict = {'file_path': file_path}
+
+            for group_name, group in f.items():
+                for dataset_name, dataset in group.items():
+                    # Wandele Numpy-Array in Python-Liste um
+                    data_array = dataset[:]
+                    data_dict[dataset_name] = data_array.tolist()
+
+            if len(data_dict) > 1:  # Überprüfe, ob mindestens ein Datensatz gefunden wurde
+                insert_h5file_into_mongodb(data_dict)
+                print(f'Daten aus Datei {file_path} erfolgreich in MongoDB eingefügt')
+
+    except Exception as e:
+        print(f"Fehler beim Lesen der Datei! '{file_path}': {e}")
 
 
 def create_diagram(x_array, y_array):
