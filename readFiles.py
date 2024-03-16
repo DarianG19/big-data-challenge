@@ -1,9 +1,7 @@
 import h5py
-import numpy as np
 import matplotlib.pyplot as plt
 import os
-from datetime import datetime
-
+from insertDataInMongoDB import insert_into_mongodb
 from utils.format_strings import format_string
 
 
@@ -13,53 +11,57 @@ def read_files(path):
     data_instruments = {}
     regions_with_instruments = {}
 
-    # Iterate through files in folder
+    # Iterate durch Dateien im Ordner
     for file_name in os.listdir(path):
         count_files += 1
         file_path = os.path.join(path, file_name)
 
-        # Check, if file_path is a file and not a folder
+        # Überprüfen, ob file_path eine Datei und kein Ordner ist
         if os.path.isfile(file_path):
             try:
-                f = h5py.File(f'{file_path}', 'r')
-                list(f.keys())
+                with h5py.File(file_path, 'r') as f:
+                    # Überprüfen, ob 'data' oder 'Daten' vorhanden ist
+                    if 'data' in f:
+                        dataset_group = f['data']
+                    elif 'Daten' in f:
+                        dataset_group = f['Daten']
+                    else:
+                        print(f"Weder 'data' noch 'Daten' in der Datei '{file_name}'. Überspringe...")
+                        continue
 
-                # Überprüfen, ob 'data' oder 'Daten' vorhanden ist
-                if 'data' in f:
-                    dataset_group = f['data']
-                elif 'Daten' in f:
-                    dataset_group = f['Daten']
-                else:
-                    print(f"Weder 'data' noch 'Daten' in der Datei '{file_name}'. Überspringe...")
-                    continue
+                    region_name = format_string(dataset_group.attrs.get("configuration"))
+                    instrument_name = format_string(dataset_group.attrs.get("instrument"))
 
-                region_name = format_string(dataset_group.attrs.get("configuration"))
-                instrument_name = format_string(dataset_group.attrs.get("instrument"))
-
-                # Regionen und Instrumente werden allgemein gezaehlt
-                if region_name in data_regions:
+                    # Regionen und Instrumente werden allgemein gezählt
+                    data_regions.setdefault(region_name, 0)
                     data_regions[region_name] += 1
-                else:
-                    data_regions[region_name] = 1
 
-                if instrument_name in data_instruments:
+                    data_instruments.setdefault(instrument_name, 0)
                     data_instruments[instrument_name] += 1
-                else:
-                    data_instruments[instrument_name] = 1
 
-                # Instrumente werden zu den entsprechenden Regionen gezaehlt
-                if region_name not in regions_with_instruments:
-                    regions_with_instruments[region_name] = {instrument_name: 1}
-                elif instrument_name not in regions_with_instruments[region_name]:
-                    regions_with_instruments[region_name][instrument_name] = 1
-                else:
+                    # Instrumente werden zu den entsprechenden Regionen gezählt
+                    regions_with_instruments.setdefault(region_name, {})
+                    regions_with_instruments[region_name].setdefault(instrument_name, 0)
                     regions_with_instruments[region_name][instrument_name] += 1
 
-                # group_x = np.arange(1, 1001)
-                dataset_list = []
-                for dataset in dataset_group:
-                    formatted_dataset = format_string(dataset)
-                    dataset_list.append(formatted_dataset)
+                    # Erstelle ein Objekt für jede h5-Datei
+                    data_object = {
+                        'file_name': file_name,
+                        'region': region_name,
+                        'instrument': instrument_name,
+                        'count': regions_with_instruments[region_name][instrument_name],
+                        'datasets': {}
+                    }
+
+                    # Füge jedes Dataset-Array zum Objekt hinzu
+                    for dataset_name in dataset_group.keys():
+                        # Wandele Numpy-Array in Python-Liste um
+                        data_array = dataset_group[dataset_name][:]
+                        data_object['datasets'][dataset_name] = data_array.tolist()
+
+                    # Füge das Objekt zur MongoDB hinzu
+                    insert_into_mongodb(data_object)
+                    print(f'Daten aus Datei {file_path} erfolgreich in MongoDB eingefügt')
 
             except Exception as e:
                 print(f"Fehler beim Lesen der Datei! '{file_name}': {e}")
@@ -78,7 +80,6 @@ def read_files(path):
             print(f"{instrument}: {count}")
         print(f"SUM: {sum_of_instruments_per_region}")
         print("---------------")
-
 
 
 def create_diagram(x_array, y_array):

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b93731bc-ea98-450b-bfa6-1a49ec889262" name="Changes" comment="some fixes">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insertDataInMongoDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/insertDataInMongoDB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readFiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/readFiles.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2bdVH8pJi9tPv8Wrt0KIphUipbn" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.Link.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.readFiles.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Implement-MongoDB&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\noahk\PycharmProjects\big-data-challenge" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-5a2391486177-2887949eec09-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.13763.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b93731bc-ea98-450b-bfa6-1a49ec889262" name="Changes" comment="" />
+      <created>1706544852077</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1706544852077</updated>
+      <workItem from="1706544853170" duration="616000" />
+      <workItem from="1706546804708" duration="539000" />
+      <workItem from="1706547933769" duration="162000" />
+      <workItem from="1706636184248" duration="2006000" />
+      <workItem from="1706641966232" duration="10000" />
+      <workItem from="1706647094980" duration="642000" />
+      <workItem from="1706685079406" duration="364000" />
+      <workItem from="1706685977571" duration="4100000" />
+      <workItem from="1706786661580" duration="5000" />
+      <workItem from="1706977671479" duration="6572000" />
+      <workItem from="1707062076750" duration="611000" />
+      <workItem from="1707062863602" duration="427000" />
+      <workItem from="1707064263409" duration="79000" />
+      <workItem from="1707123611937" duration="4424000" />
+      <workItem from="1707151883254" duration="11000" />
+      <workItem from="1707152963397" duration="1029000" />
+      <workItem from="1707155574550" duration="73000" />
+      <workItem from="1707155658748" duration="364000" />
+      <workItem from="1707156035046" duration="127000" />
+      <workItem from="1707156170351" duration="170000" />
+      <workItem from="1707425975248" duration="7000" />
+      <workItem from="1707748556325" duration="2024000" />
+      <workItem from="1707823089608" duration="1971000" />
+      <workItem from="1707990524255" duration="599000" />
+      <workItem from="1708104250012" duration="822000" />
+      <workItem from="1708199593024" duration="2668000" />
+      <workItem from="1708965787837" duration="1095000" />
+      <workItem from="1709124343883" duration="176000" />
+      <workItem from="1709200691017" duration="485000" />
+      <workItem from="1710255115563" duration="39000" />
+      <workItem from="1710587125673" duration="6667000" />
+    </task>
+    <task id="LOCAL-00001" summary="test">
+      <option name="closed" value="true" />
+      <created>1706547993069</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1706547993069</updated>
+    </task>
+    <task id="LOCAL-00002" summary="test">
+      <option name="closed" value="true" />
+      <created>1706548042357</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1706548042357</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fix: dsetGroup can now be named 'data' or 'Daten'">
+      <option name="closed" value="true" />
+      <created>1707063155010</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1707063155010</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix: dsetGroup can now be named 'data' or 'Daten'">
+      <option name="closed" value="true" />
+      <created>1707064285771</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1707064285771</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fix: change way error messages are printed">
+      <option name="closed" value="true" />
+      <created>1707155520116</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1707155520116</updated>
+    </task>
+    <task id="LOCAL-00006" summary="fix: change way error messages are printed">
+      <option name="closed" value="true" />
+      <created>1707155591854</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1707155591854</updated>
+    </task>
+    <task id="LOCAL-00007" summary="fix: change way error messages are printed">
+      <option name="closed" value="true" />
+      <created>1707155692961</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1707155692961</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fix: change way error messages are printed">
+      <option name="closed" value="true" />
+      <created>1707156243974</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1707156243974</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fix: change way error messages are printed">
+      <option name="closed" value="true" />
+      <created>1708263300796</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1708263300796</updated>
+    </task>
+    <task id="LOCAL-00010" summary="some fixes">
+      <option name="closed" value="true" />
+      <created>1708946006528</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1708946006528</updated>
+    </task>
+    <task id="LOCAL-00011" summary="some fixes">
+      <option name="closed" value="true" />
+      <created>1708966831365</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1708966831365</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="test" />
+    <MESSAGE value="fix: dsetGroup can now be named 'data' or 'Daten'" />
+    <MESSAGE value="fix: change way error messages are printed" />
+    <MESSAGE value="some fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="some fixes" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/big_data_challenge$Link.coverage" NAME="Link Coverage Results" MODIFIED="1708200070503" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
+    <SUITE FILE_PATH="coverage/big_data_challenge$main.coverage" NAME="main Coverage Results" MODIFIED="1710600741992" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/big_data_challenge$readFiles.coverage" NAME="readFiles Coverage Results" MODIFIED="1707823516603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
