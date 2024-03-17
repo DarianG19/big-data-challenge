@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import os
 from insertDataInMongoDB import insert_into_mongodb
 from utils.format_strings import format_string
+from utils.tukey_outlier_detection import process_datasets
 
 
 def read_files(path):
@@ -53,14 +54,14 @@ def read_files(path):
                         'datasets': {}
                     }
 
-                    # Process datasets for outliers
-                    process_datasets(data_object)
-
                     # Füge jedes Dataset-Array zum Objekt hinzu
                     for dataset_name in dataset_group.keys():
                         # Wandele Numpy-Array in Python-Liste um
                         data_array = dataset_group[dataset_name][:]
                         data_object['datasets'][dataset_name] = data_array.tolist()
+
+                    # Process datasets for outliers
+                    process_datasets(data_object)
 
                     # Füge das Objekt zur MongoDB hinzu
                     # insert_into_mongodb(data_object)

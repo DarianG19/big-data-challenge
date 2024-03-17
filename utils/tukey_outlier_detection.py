@@ -1,4 +1,5 @@
 from scipy.stats import iqr
+import numpy as np
 
 
 def process_datasets(data_object):
