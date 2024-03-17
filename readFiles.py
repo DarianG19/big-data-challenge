@@ -61,7 +61,7 @@ def read_files(path):
                         data_object['datasets'][dataset_name] = data_array.tolist()
 
                     # Process datasets for outliers
-                    process_datasets(data_object)
+                    data_object = process_datasets(data_object)
 
                     # Füge das Objekt zur MongoDB hinzu
                     # insert_into_mongodb(data_object)

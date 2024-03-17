@@ -7,7 +7,6 @@
     <list default="true" id="b93731bc-ea98-450b-bfa6-1a49ec889262" name="Changes" comment="added first version of outlier detection">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readFiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/readFiles.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/tukey_outlier_detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/tukey_outlier_detection.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -375,7 +374,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710688726686</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="added first version of outlier detection">
+      <option name="closed" value="true" />
+      <created>1710711857531</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1710711857531</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
