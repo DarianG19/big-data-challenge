@@ -2,7 +2,7 @@ from readFiles import read_files
 
 
 def main():
-    read_files('./dataset')
+    read_files('./dataset/dataset')
 
 
 if __name__ == '__main__':

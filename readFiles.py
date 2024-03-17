@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import os
 from insertDataInMongoDB import insert_into_mongodb
 from utils.format_strings import format_string
+from utils.tukey_outlier_detection import process_datasets
 
 
 def read_files(path):
@@ -44,24 +45,23 @@ def read_files(path):
                     regions_with_instruments[region_name].setdefault(instrument_name, 0)
                     regions_with_instruments[region_name][instrument_name] += 1
 
-                    # Erstelle ein Objekt für jede h5-Datei
-                    data_object = {
-                        'file_name': file_name,
-                        'region': region_name,
-                        'instrument': instrument_name,
-                        'count': regions_with_instruments[region_name][instrument_name],
-                        'datasets': {}
-                    }
+                    # Process datasets for outliers and get cleaned datasets
+                    cleaned_datasets = process_datasets(file_path)
 
-                    # Füge jedes Dataset-Array zum Objekt hinzu
-                    for dataset_name in dataset_group.keys():
-                        # Wandele Numpy-Array in Python-Liste um
-                        data_array = dataset_group[dataset_name][:]
-                        data_object['datasets'][dataset_name] = data_array.tolist()
+                    # Füge jedes bereinigte Dataset zum Objekt hinzu
+                    for dataset_name, cleaned_data in cleaned_datasets.items():
+                        data_object = {
+                            'file_name': file_name,
+                            'region': region_name,
+                            'instrument': instrument_name,
+                            'count': regions_with_instruments[region_name][instrument_name],
+                            'dataset_name': dataset_name,
+                            'cleaned_data': cleaned_data
+                        }
 
-                    # Füge das Objekt zur MongoDB hinzu
-                    insert_into_mongodb(data_object)
-                    print(f'Daten aus Datei {file_path} erfolgreich in MongoDB eingefügt')
+                        # Hier können Sie die bereinigten Daten verwenden oder speichern, z.B.:
+                        # insert_into_mongodb(data_object)
+                        # print(f'Bereinigte Daten für {dataset_name} aus Datei {file_path} erfolgreich verarbeitet')
 
             except Exception as e:
                 print(f"Fehler beim Lesen der Datei! '{file_name}': {e}")
