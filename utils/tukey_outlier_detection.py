@@ -1,41 +1,28 @@
-import h5py
-import numpy as np
+from scipy.stats import iqr
 
 
-def tukey_outlier_detection(data, multiplier=1.5):
-    q1 = np.percentile(data, 25)
-    q3 = np.percentile(data, 75)
-    iqr = q3 - q1
-    lower_bound = q1 - (multiplier * iqr)
-    upper_bound = q3 + (multiplier * iqr)
-    outliers = [x for x in data if x < lower_bound or x > upper_bound]
-    return outliers
+def process_datasets(data_object):
+    for dataset_name, dataset_values in data_object['datasets'].items():
+        # Durchführung der Tukey-Ausreißererkennung
+        q1 = np.percentile(dataset_values, 25)
+        q3 = np.percentile(dataset_values, 75)
+        iqr_value = iqr(dataset_values)
+        lower_bound = q1 - 1.5 * iqr_value
+        upper_bound = q3 + 1.5 * iqr_value
 
+        # Ausreißer identifizieren
+        outliers = [value for value in dataset_values if value < lower_bound or value > upper_bound]
 
-def process_datasets(file_path):
-    try:
-        with h5py.File(file_path, 'r') as f:
-            for dataset_name, dataset in f.items():
-                # Convert dataset to numpy array
-                # data = np.array(dataset, dtype=float)
+        # Prozentsatz der Ausreißer berechnen
+        outlier_percentage = (len(outliers) / len(dataset_values)) * 100
 
-                # Print content of dataset
-                print(f"Content of Dataset '{dataset_name}':")
-                print(data)
+        # Ausgabe in der Konsole
+        print(f"Ausreißer im Datensatz '{dataset_name}':")
+        print(f"Anzahl der Ausreißer: {len(outliers)}")
+        print(f"Prozentualer Anteil der Ausreißer: {outlier_percentage:.2f}%")
 
-                # Tukey outlier detection
-                outliers = tukey_outlier_detection(data)
+        # Ausreißer aus dem Datensatz entfernen
+        cleaned_dataset = [value for value in dataset_values if value >= lower_bound and value <= upper_bound]
+        data_object['datasets'][dataset_name] = cleaned_dataset
 
-                # Remove outliers from data
-                cleaned_data = [x for x in data if x not in outliers]
-
-                # Calculate percentage of outliers
-                percentage_outliers = len(outliers) / len(data) * 100
-
-                print(f"Dataset: {dataset_name}")
-                print(f"Total outliers: {len(outliers)}")
-                print(f"Percentage outliers: {percentage_outliers:.2f}%")
-                print("------------")
-
-    except Exception as e:
-        print(f"Fehler beim Lesen der Datei! '{file_path}': {e}")
+    return data_object
