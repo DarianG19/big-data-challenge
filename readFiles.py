@@ -45,23 +45,8 @@ def read_files(path):
                     regions_with_instruments[region_name].setdefault(instrument_name, 0)
                     regions_with_instruments[region_name][instrument_name] += 1
 
-                    # Process datasets for outliers and get cleaned datasets
-                    cleaned_datasets = process_datasets(file_path)
-
-                    # Füge jedes bereinigte Dataset zum Objekt hinzu
-                    for dataset_name, cleaned_data in cleaned_datasets.items():
-                        data_object = {
-                            'file_name': file_name,
-                            'region': region_name,
-                            'instrument': instrument_name,
-                            'count': regions_with_instruments[region_name][instrument_name],
-                            'dataset_name': dataset_name,
-                            'cleaned_data': cleaned_data
-                        }
-
-                        # Hier können Sie die bereinigten Daten verwenden oder speichern, z.B.:
-                        # insert_into_mongodb(data_object)
-                        # print(f'Bereinigte Daten für {dataset_name} aus Datei {file_path} erfolgreich verarbeitet')
+                    # Process datasets for outliers
+                    process_datasets(file_path)
 
             except Exception as e:
                 print(f"Fehler beim Lesen der Datei! '{file_name}': {e}")
