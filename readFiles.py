@@ -4,98 +4,111 @@ import os
 from insertDataInMongoDB import insert_into_mongodb
 from utils.format_strings import format_string
 from utils.tukey_outlier_detection import process_datasets
+from utils.check_numeric import check_if_numeric
 
 
-def read_files(path):
-    count_files = 0
-    data_regions = {}
-    data_instruments = {}
-    regions_with_instruments = {}
+def list_files_in_path(path):
+    # Listet alle Dateien im angegebenen Pfad auf
+    return [os.path.join(path, file_name) for file_name in os.listdir(path) if
+            os.path.isfile(os.path.join(path, file_name))]
 
-    # Iterate durch Dateien im Ordner
-    for file_name in os.listdir(path):
-        count_files += 1
-        file_path = os.path.join(path, file_name)
 
-        # Überprüfen, ob file_path eine Datei und kein Ordner ist
-        if os.path.isfile(file_path):
-            try:
-                with h5py.File(file_path, 'r') as f:
-                    # Überprüfen, ob 'data' oder 'Daten' vorhanden ist
-                    if 'data' in f:
-                        dataset_group = f['data']
-                    elif 'Daten' in f:
-                        dataset_group = f['Daten']
-                    else:
-                        print(f"Weder 'data' noch 'Daten' in der Datei '{file_name}'. Überspringe...")
-                        continue
+def read_and_store_file(file_path, easter_egg_counter):
+    try:
+        with h5py.File(file_path, 'r') as f:
+            # Überprüfen, ob 'data' oder 'Daten' vorhanden ist
+            if 'data' in f:
+                dataset_group = f['data']
+            elif 'Daten' in f:
+                dataset_group = f['Daten']
+            else:
+                return None, None, easter_egg_counter, (
+                    f"Weder 'data' noch 'Daten' in der Datei '{os.path.basename(file_path)}'. "
+                    f"Überspringe...")
 
-                    region_name = format_string(dataset_group.attrs.get("configuration"))
-                    instrument_name = format_string(dataset_group.attrs.get("instrument"))
+            region_name = format_string(dataset_group.attrs.get("configuration", ""))
+            instrument_name = format_string(dataset_group.attrs.get("instrument", ""))
 
-                    # Regionen und Instrumente werden allgemein gezählt
-                    data_regions.setdefault(region_name, 0)
-                    data_regions[region_name] += 1
+            # Erstelle ein Objekt für jede h5-Datei
+            data_object = {
+                'file_name': os.path.basename(file_path),
+                'region': region_name,
+                'instrument': instrument_name,
+                'datasets': {}
+            }
 
-                    data_instruments.setdefault(instrument_name, 0)
-                    data_instruments[instrument_name] += 1
-
-                    # Instrumente werden zu den entsprechenden Regionen gezählt
-                    regions_with_instruments.setdefault(region_name, {})
-                    regions_with_instruments[region_name].setdefault(instrument_name, 0)
-                    regions_with_instruments[region_name][instrument_name] += 1
-
-                    # Erstelle ein Objekt für jede h5-Datei
-                    data_object = {
-                        'file_name': file_name,
-                        'region': region_name,
-                        'instrument': instrument_name,
-                        'count': regions_with_instruments[region_name][instrument_name],
-                        'datasets': {}
-                    }
-
-                    # Füge jedes Dataset-Array zum Objekt hinzu
-                    for dataset_name in dataset_group.keys():
-                        # Wandele Numpy-Array in Python-Liste um
-                        data_array = dataset_group[dataset_name][:]
-                        data_object['datasets'][dataset_name] = data_array.tolist()
+            # Prüfe jedes Dataset in der Datagroup auf numerische Werte
+            for dataset_name in dataset_group.keys():
+                dataset = dataset_group[dataset_name]
+                data = dataset[()]
+                data_list = []
+                for index, entry in enumerate(data):
+                    try:
+                        check_if_numeric(entry)
+                        data_list.append(entry)
+                    except ValueError:
+                        easter_egg_counter += 1
+                        print(
+                            f"Das Dataset '{dataset_name}' am Index {index} in '{os.path.basename(file_path)}' hat einen nicht-numerischen Wert '{entry}'.")
+                        # TODO: Dateien entfernen aus dem gesamten Dataset
 
                     # Process datasets for outliers
                     data_object = process_datasets(data_object)
+                    data_object['datasets'][dataset_name] = data_list
 
                     # Füge das Objekt zur MongoDB hinzu
                     # insert_into_mongodb(data_object)
                     # print(f'Daten aus Datei {file_path} erfolgreich in MongoDB eingefügt')
 
-            except Exception as e:
-                print(f"Fehler beim Lesen der Datei! '{file_name}': {e}")
-                continue
-        else:
-            print(f"{file_path} skipped ... ")
+            return region_name, instrument_name, easter_egg_counter, None
+    except Exception as e:
+        return None, None, easter_egg_counter, f"Fehler beim Lesen der Datei! '{os.path.basename(file_path)}': {e}"
 
+
+def update_counts(region_name, instrument_name, data_regions, data_instruments, regions_with_instruments):
+    if region_name:
+        # Regionen und Instrumente werden allgemein gezaehlt
+        data_regions[region_name] = data_regions.get(region_name, 0) + 1
+        data_instruments[instrument_name] = data_instruments.get(instrument_name, 0) + 1
+
+        # Instrumente werden zu den entsprechenden Regionen gezaehlt
+        if region_name not in regions_with_instruments:
+            regions_with_instruments[region_name] = {}
+        regions_with_instruments[region_name][instrument_name] = regions_with_instruments[region_name].get(
+            instrument_name, 0) + 1
+
+
+def print_summary(count_files, data_regions, data_instruments, regions_with_instruments, easter_egg_counter):
     print(f"Anzahl der Dateien, die durchlaufen werden: {count_files}")
     print(f"Regionen: {data_regions}")
     print(f"Instrumente: {data_instruments}", end="\n\n")
 
-    for region in regions_with_instruments:
-        sum_of_instruments_per_region = sum(regions_with_instruments[region].values())
+    for region, instruments in regions_with_instruments.items():
+        sum_of_instruments_per_region = sum(instruments.values())
         print(f"{region.upper()}")
-        for instrument, count in regions_with_instruments[region].items():
+        for instrument, count in instruments.items():
             print(f"{instrument}: {count}")
         print(f"SUM: {sum_of_instruments_per_region}")
         print("---------------")
 
+    print(f"Easter Egg Counter: {easter_egg_counter}")
 
-def create_diagram(x_array, y_array):
-    """
-    Funktion zum Erstellen von Graphen (aktuell Plots)
-    :param x_array: Datenset für die Abszisse
-    :param y_array: Datenset für Ordinate
-    """
-    plt.plot(x_array, y_array)
 
-    plt.title('Diagramm')
-    plt.xlabel('')
-    plt.ylabel('Distance')
+def read_files(path):
+    easter_egg_counter = 0
+    count_files = 0
+    data_regions = {}
+    data_instruments = {}
+    regions_with_instruments = {}
 
-    plt.show()
+    file_paths = list_files_in_path(path)
+    for file_path in file_paths:
+        count_files += 1
+        region_name, instrument_name, easter_egg_counter, error_message = read_and_store_file(file_path, easter_egg_counter)
+        if error_message:
+            print(error_message)
+            continue
+
+        update_counts(region_name, instrument_name, data_regions, data_instruments, regions_with_instruments)
+
+    print_summary(count_files, data_regions, data_instruments, regions_with_instruments, easter_egg_counter)
