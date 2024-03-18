@@ -1,16 +1,25 @@
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+from datetime import datetime
 
 
-def create_diagram(x_array, y_array):
-    """
-    Funktion zum Erstellen von Graphen (aktuell Plots)
-    :param x_array: Datenset für die Abszisse
-    :param y_array: Datenset für Ordinate
-    """
-    plt.plot(x_array, y_array)
+# Die restlichen Importe und Hilfsfunktionen bleiben unverändert
 
-    plt.title('Diagramm')
-    plt.xlabel('')
-    plt.ylabel('Distance')
+def plot_dataset(timestamps, values, dataset_name, file_name):
+    # Konvertiere Timestamps von Bytes zu Strings und dann zu datetime-Objekten, falls notwendig
+    timestamps = [datetime.strptime(ts.decode('utf-8'), "%Y-%m-%dT%H:%M:%S") if isinstance(ts, bytes) else ts for ts in
+                  timestamps]
+
+    # Erstelle das Plot
+    plt.figure(figsize=(10, 6))
+    plt.scatter(timestamps, values, marker='.', linestyle='-')
+    plt.title(f'{dataset_name} over Time in {file_name}')
+    plt.xlabel('Timestamp')
+    plt.ylabel(dataset_name.capitalize())
+
+    # Formatierung der X-Achse als Datum
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%dT%H:%M:%S'))
+    plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
+    plt.gcf().autofmt_xdate()  # Rotation
 
     plt.show()

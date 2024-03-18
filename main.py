@@ -1,7 +1,8 @@
-from readFiles import read_files
+from readFiles import read_files, get_data
 
 
 def main():
+    # get_data()
     read_files('./dataset')
 
 

@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93731bc-ea98-450b-bfa6-1a49ec889262" name="Changes" comment="Merged master">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="b93731bc-ea98-450b-bfa6-1a49ec889262" name="Changes" comment="feat: added inserting into db again">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagrams.py" beforeDir="false" afterPath="$PROJECT_DIR$/diagrams.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insertDataInMongoDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/insertDataInMongoDB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readFiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/readFiles.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,10 +25,17 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="feature-handle-eastereggs" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="master" />
+      </list>
+    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -43,10 +52,10 @@
   "keyToString": {
     "Python.Link.executor": "Run",
     "Python.main.executor": "Run",
-    "Python.readFiles.executor": "Run",
+    "Python.readFiles.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature-handle-eastereggs",
+    "git-widget-placeholder": "feature-correct-graphics",
     "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -108,7 +117,7 @@
       <workItem from="1709200691017" duration="485000" />
       <workItem from="1710255115563" duration="39000" />
       <workItem from="1710587125673" duration="6667000" />
-      <workItem from="1710752775808" duration="682000" />
+      <workItem from="1710752775808" duration="5891000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -206,7 +215,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710753043055</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="feat: added inserting into db again">
+      <option name="closed" value="true" />
+      <created>1710753681361</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1710753681361</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,11 +246,14 @@
     <MESSAGE value="fix: change way error messages are printed" />
     <MESSAGE value="some fixes" />
     <MESSAGE value="Merged master" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merged master" />
+    <MESSAGE value="feat: added inserting into db again" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: added inserting into db again" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/big_data_challenge$Link.coverage" NAME="Link Coverage Results" MODIFIED="1708200070503" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
     <SUITE FILE_PATH="coverage/big_data_challenge$main.coverage" NAME="main Coverage Results" MODIFIED="1710600741992" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/big_data$main.coverage" NAME="main Coverage Results" MODIFIED="1710762590686" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/big_data$readFiles.coverage" NAME="readFiles Coverage Results" MODIFIED="1710755489263" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/big_data_challenge$Link.coverage" NAME="Link Coverage Results" MODIFIED="1708200070503" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
     <SUITE FILE_PATH="coverage/big_data_challenge$readFiles.coverage" NAME="readFiles Coverage Results" MODIFIED="1707823516603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
