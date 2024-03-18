@@ -1,4 +1,4 @@
-from diagrams import create_scatter_plot
+from diagrams import create_plot
 from storing_files import read_and_store_locale_files
 from mongo_db import get_data_for_specific_region_and_instrument
 
@@ -17,7 +17,9 @@ def main():
     y_file = "012dd33a-c1a7-4e9d-91cb-7de11e82f976.h5"
 
     x_axis_dataset = "timestamp"
-    y_axis_dataset = "defect_channel"
+    y_axis_dataset = "velocity"
+
+    diagram_variant = "line"
 
     x_axis_list = []
     y_axis_list = []
@@ -35,7 +37,7 @@ def main():
         y_axis_list = y_axis_list[:len(x_axis_list)]
 
     print(len(x_axis_list), len(y_axis_list))
-    create_scatter_plot(x_axis_list, y_axis_list, x_axis_dataset, y_axis_dataset)
+    create_plot(x_axis_list, y_axis_list, x_axis_dataset, y_axis_dataset, diagram_variant)
 
 
 if __name__ == '__main__':

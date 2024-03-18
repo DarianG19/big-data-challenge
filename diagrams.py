@@ -35,10 +35,15 @@ def create_regression_scatter_plot(x_test, y_test, y_pred):
     plt.show()
 
 
-def create_scatter_plot(x_axis_values, y_axis_values, x_axis_name, y_axis_name):
-    plt.scatter(x_axis_values, y_axis_values, marker='.', linestyle='-', color='blue', label="Werte")
+def create_plot(x_axis_values, y_axis_values, x_axis_name, y_axis_name, variant):
     plt.xlabel(x_axis_name)
     plt.ylabel(y_axis_name)
     plt.title(f"Verhaeltnis - {y_axis_name} vs. {x_axis_name}")
+
+    if variant == "scatter":
+        plt.scatter(x_axis_values, y_axis_values, marker='.', linestyle='-', color='blue', label="Werte")
+    elif variant == "line":
+        plt.plot(x_axis_values, y_axis_values, color='blue', linewidth=1, label='Werte')
+
     plt.legend()
     plt.show()
