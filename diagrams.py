@@ -23,3 +23,13 @@ def plot_dataset(timestamps, values, dataset_name, file_name):
     plt.gcf().autofmt_xdate()  # Rotation
 
     plt.show()
+
+
+def create_scatter_plot(x_test, y_test, y_pred):
+    plt.scatter(x_test, y_test, color='red', label='Tatsächliche Werte')
+    plt.plot(x_test, y_pred, color='blue', linewidth=2, label='Vorhersagen')
+    plt.xlabel('Timestamp')
+    plt.ylabel('magnetization')
+    plt.title('Lineare Regression - Magnetisierung vs. Timestamps')
+    plt.legend()
+    plt.show()

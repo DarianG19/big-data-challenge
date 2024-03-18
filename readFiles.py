@@ -4,6 +4,7 @@ from insertDataInMongoDB import insert_into_mongodb, get_data_from_mongodb
 from utils.format_strings import format_string
 from utils.check_numeric import check_if_numeric
 from diagrams import plot_dataset
+from utils.linear_regression import run_regression
 
 
 def get_data():
@@ -45,26 +46,31 @@ def read_and_store_file(file_path, easter_egg_counter):
             dataset_names = dataset_group.keys()
             if 'timestamp' in dataset_names:
                 timestamps = dataset_group['timestamp'][:]
+                magnetization = dataset_group['magnetization'][:]
+                print(len(timestamps), len(magnetization))
+
+                new_magnetization = run_regression(timestamps, magnetization)
 
                 # Prüfe jedes Dataset in der Datagroup auf numerische Werte
-                for dataset_name in dataset_names:
-                    if dataset_name != 'timestamp':
-                        dataset = dataset_group[dataset_name]
-                        data = dataset[()]
-                        data_list = []
-                        # values = dataset[:]
-                        # plot_dataset(timestamps, values, dataset_name, os.path.basename(file_path))
-                        for index, entry in enumerate(data):
-                            try:
-                                check_if_numeric(entry)
-                                data_list.append(entry)
-                            except ValueError:
-                                easter_egg_counter += 1
-                                print(
-                                    f"Das Dataset '{dataset_name}' am Index {index} in '{os.path.basename(file_path)}' hat einen nicht-numerischen Wert '{entry}'.")
-                                # TODO: Dateien entfernen aus dem gesamten Dataset
-
-                    data_object['datasets'][dataset_name] = data_list
+                # for dataset_name in dataset_names:
+                #     if dataset_name != 'timestamp':
+                #         dataset = dataset_group[dataset_name]
+                #         data = dataset[()]
+                #         data_list = []
+                #         values = dataset[:]
+                #         plot_dataset(timestamps, values, dataset_name, os.path.basename(file_path))
+                #         # run_regression(timestamps, magnetization)
+                #         # for index, entry in enumerate(data):
+                #         #     try:
+                #         #         check_if_numeric(entry)
+                #         #         data_list.append(entry)
+                #         #     except ValueError:
+                #         #         easter_egg_counter += 1
+                #         #         print(
+                #         #             f"Das Dataset '{dataset_name}' am Index {index} in '{os.path.basename(file_path)}' hat einen nicht-numerischen Wert '{entry}'.")
+                #         #         # TODO: Dateien entfernen aus dem gesamten Dataset
+                #
+                #     data_object['datasets'][dataset_name] = data_list
 
             # insert_into_mongodb(data_object)
 
@@ -119,5 +125,6 @@ def read_files(path):
             continue
 
         update_counts(region_name, instrument_name, data_regions, data_instruments, regions_with_instruments)
+        break
 
     print_summary(count_files, data_regions, data_instruments, regions_with_instruments, easter_egg_counter)
