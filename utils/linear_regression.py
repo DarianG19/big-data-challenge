@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 import pandas as pd
 
-from diagrams import create_scatter_plot
+from diagrams import create_regression_scatter_plot
 
 
 def run_regression(x_list, y_list):
@@ -26,6 +26,6 @@ def run_regression(x_list, y_list):
 
     # Vorhersagen treffen
     y_pred = model.predict(x_test)
-    create_scatter_plot(x_test, y_test, y_pred)
+    create_regression_scatter_plot(x_test, y_test, y_pred)
 
     return y_pred.tolist()

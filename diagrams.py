@@ -5,7 +5,7 @@ from datetime import datetime
 
 # Die restlichen Importe und Hilfsfunktionen bleiben unverändert
 
-def plot_dataset(timestamps, values, dataset_name, file_name):
+def plot_dataset_with_timestamps(timestamps, values, dataset_name, file_name):
     # Konvertiere Timestamps von Bytes zu Strings und dann zu datetime-Objekten, falls notwendig
     timestamps = [datetime.strptime(ts.decode('utf-8'), "%Y-%m-%dT%H:%M:%S") if isinstance(ts, bytes) else ts for ts in
                   timestamps]
@@ -25,11 +25,20 @@ def plot_dataset(timestamps, values, dataset_name, file_name):
     plt.show()
 
 
-def create_scatter_plot(x_test, y_test, y_pred):
+def create_regression_scatter_plot(x_test, y_test, y_pred):
     plt.scatter(x_test, y_test, color='red', label='Tatsächliche Werte')
     plt.plot(x_test, y_pred, color='blue', linewidth=2, label='Vorhersagen')
     plt.xlabel('Timestamp')
     plt.ylabel('magnetization')
     plt.title('Lineare Regression - Magnetisierung vs. Timestamps')
+    plt.legend()
+    plt.show()
+
+
+def create_scatter_plot(x_axis_values, y_axis_values, x_axis_name, y_axis_name):
+    plt.scatter(x_axis_values, y_axis_values, marker='.', linestyle='-', color='blue', label="Werte")
+    plt.xlabel(x_axis_name)
+    plt.ylabel(y_axis_name)
+    plt.title(f"Verhaeltnis - {y_axis_name} vs. {x_axis_name}")
     plt.legend()
     plt.show()
