@@ -4,4 +4,6 @@
     <option name="sdkName" value="$USER_HOME$/anaconda3" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="$USER_HOME$/anaconda3" project-jdk-type="Python SDK" />
+    <option name="sdkName" value="C:\Users\noahk\anaconda3" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="C:\Users\noahk\anaconda3" project-jdk-type="Python SDK" />
 </project>

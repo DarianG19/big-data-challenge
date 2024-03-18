@@ -1,5 +1,6 @@
 import h5py
 import os
+from insertDataInMongoDB import insert_into_mongodb
 from utils.format_strings import format_string
 from utils.check_numeric import check_if_numeric
 
