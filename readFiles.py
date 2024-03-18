@@ -1,10 +1,10 @@
 import h5py
-import matplotlib.pyplot as plt
 import os
 from insertDataInMongoDB import insert_into_mongodb
 from utils.format_strings import format_string
 from utils.tukey_outlier_detection import process_datasets
 from utils.check_numeric import check_if_numeric
+from diagrams import plot_regions_with_instruments
 
 
 def list_files_in_path(path):
@@ -49,16 +49,18 @@ def read_and_store_file(file_path, easter_egg_counter):
                     except ValueError:
                         easter_egg_counter += 1
                         print(
-                            f"Das Dataset '{dataset_name}' am Index {index} in '{os.path.basename(file_path)}' hat einen nicht-numerischen Wert '{entry}'.")
+                            f"Das Dataset '{dataset_name}' am Index {index} in '{os.path.basename(file_path)}"
+                            f"' hat einen nicht-numerischen Wert '{entry}'.")
                         # TODO: Dateien entfernen aus dem gesamten Dataset
 
-                    # Process datasets for outliers
-                    data_object = process_datasets(data_object)
                     data_object['datasets'][dataset_name] = data_list
 
+                    # Process datasets for outliers
+                    # data_object = process_datasets(data_object)
+
                     # Füge das Objekt zur MongoDB hinzu
-                    # insert_into_mongodb(data_object)
-                    # print(f'Daten aus Datei {file_path} erfolgreich in MongoDB eingefügt')
+                    insert_into_mongodb(data_object)
+                    print(f'Daten aus Datei {file_path} erfolgreich in MongoDB eingefügt')
 
             return region_name, instrument_name, easter_egg_counter, None
     except Exception as e:
@@ -104,11 +106,13 @@ def read_files(path):
     file_paths = list_files_in_path(path)
     for file_path in file_paths:
         count_files += 1
-        region_name, instrument_name, easter_egg_counter, error_message = read_and_store_file(file_path, easter_egg_counter)
+        region_name, instrument_name, easter_egg_counter, error_message = read_and_store_file(file_path,
+                                                                                              easter_egg_counter)
         if error_message:
             print(error_message)
             continue
 
         update_counts(region_name, instrument_name, data_regions, data_instruments, regions_with_instruments)
 
+    # plot_bar_chart(regions_with_instruments)
     print_summary(count_files, data_regions, data_instruments, regions_with_instruments, easter_egg_counter)
