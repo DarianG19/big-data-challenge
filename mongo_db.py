@@ -1,5 +1,7 @@
 from pymongo.mongo_client import MongoClient
 
+from utils.format_strings import format_string
+
 uri = "mongodb+srv://noahkuse:BigDMitBigD@bigdataproject.f6aka7m.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(uri)
 database = client['BigDataProject']
@@ -23,7 +25,7 @@ def insert_into_mongodb(data_dict):
 def get_data_for_specific_region_and_instrument(region, instrument):
     collection = database['dataWithoutAusreißer']
 
-    query = {'region': region, 'instrument': instrument}
+    query = {'region': format_string(region), 'instrument': format_string(instrument)}
 
     try:
         return collection.find(query)

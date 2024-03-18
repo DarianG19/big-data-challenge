@@ -44,7 +44,6 @@ def prepare_data_object(file_path, dataset_group, region_name, instrument_name, 
                                                                       easter_egg_counter)
         data_object['datasets'][format_string(dataset_name)] = valid_data
 
-
     return data_object, easter_egg_counter
 
 
@@ -63,7 +62,8 @@ def process_and_store_data(file_path, easter_egg_counter):
             region_name = format_string(dataset_group.attrs.get("configuration", ""))
             instrument_name = format_string(dataset_group.attrs.get("instrument", ""))
 
-            data_object, easter_egg_counter = prepare_data_object(file_path, dataset_group, region_name, instrument_name, easter_egg_counter)
+            data_object, easter_egg_counter = prepare_data_object(file_path, dataset_group, region_name,
+                                                                  instrument_name, easter_egg_counter)
 
             # insert_into_mongodb(data_object)
 
