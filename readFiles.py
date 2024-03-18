@@ -11,7 +11,7 @@ def list_files_in_path(path):
             os.path.isfile(os.path.join(path, file_name))]
 
 
-def read_file(file_path, easter_egg_counter):
+def read_and_store_file(file_path, easter_egg_counter):
     try:
         with h5py.File(file_path, 'r') as f:
             # Überprüfen, ob 'data' oder 'Daten' vorhanden ist
@@ -27,18 +27,32 @@ def read_file(file_path, easter_egg_counter):
             region_name = format_string(dataset_group.attrs.get("configuration", ""))
             instrument_name = format_string(dataset_group.attrs.get("instrument", ""))
 
+            # Erstelle ein Objekt für jede h5-Datei
+            data_object = {
+                'file_name': os.path.basename(file_path),
+                'region': region_name,
+                'instrument': instrument_name,
+                'datasets': {}
+            }
+
             # Prüfe jedes Dataset in der Datagroup auf numerische Werte
             for dataset_name in dataset_group.keys():
                 dataset = dataset_group[dataset_name]
                 data = dataset[()]
+                data_list = []
                 for index, entry in enumerate(data):
                     try:
                         check_if_numeric(entry)
+                        data_list.append(entry)
                     except ValueError:
                         easter_egg_counter += 1
                         print(
                             f"Das Dataset '{dataset_name}' am Index {index} in '{os.path.basename(file_path)}' hat einen nicht-numerischen Wert '{entry}'.")
                         # TODO: Dateien entfernen aus dem gesamten Dataset
+
+                data_object['datasets'][dataset_name] = data_list
+
+            insert_into_mongodb(data_object)
 
             return region_name, instrument_name, easter_egg_counter, None
     except Exception as e:
@@ -84,7 +98,7 @@ def read_files(path):
     file_paths = list_files_in_path(path)
     for file_path in file_paths:
         count_files += 1
-        region_name, instrument_name, easter_egg_counter, error_message = read_file(file_path, easter_egg_counter)
+        region_name, instrument_name, easter_egg_counter, error_message = read_and_store_file(file_path, easter_egg_counter)
         if error_message:
             print(error_message)
             continue
