@@ -1,13 +1,13 @@
 from pymongo.mongo_client import MongoClient
 
 
-def insert_into_mongodb(data_dict):
+def insert_into_mongodb(data_dict, file_path):
     if data_dict.get('instrument') == "pufferfish" and data_dict.get('region') == "australia":
         # Erstelle einen neuen Client und verbinde dich mit dem Server
         uri = "mongodb+srv://noahkuse:BigDMitBigD@bigdataproject.f6aka7m.mongodb.net/?retryWrites=true&w=majority"
         client = MongoClient(uri)
         database = client['BigDataProject']
-        collection = database['data']
+        collection = database['dataWA']
 
         try:
             # Füge die Daten in MongoDB ein
