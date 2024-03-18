@@ -20,10 +20,10 @@ def insert_into_mongodb(data_dict):
         client.close()
 
 
-def get_data_from_mongodb():
+def get_data_for_specific_region_and_instrument(region, instrument):
     collection = database['dataWithoutAusreißer']
 
-    query = {'region': 'europe', 'instrument': 'unicorn'}
+    query = {'region': region, 'instrument': instrument}
 
     try:
         return collection.find(query)

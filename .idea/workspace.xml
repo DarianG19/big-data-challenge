@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93731bc-ea98-450b-bfa6-1a49ec889262" name="Changes" comment="feat: added function to get data by region and instrument">
-      <change afterPath="$PROJECT_DIR$/utils/linear_regression.py" afterDir="false" />
+    <list default="true" id="b93731bc-ea98-450b-bfa6-1a49ec889262" name="Changes" comment="feat: added linear regression">
+      <change afterPath="$PROJECT_DIR$/reading_files.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storing_files.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagrams.py" beforeDir="false" afterPath="$PROJECT_DIR$/diagrams.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readFiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/readFiles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insertDataInMongoDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/mongo_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readFiles.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +119,7 @@
       <workItem from="1709200691017" duration="485000" />
       <workItem from="1710255115563" duration="39000" />
       <workItem from="1710587125673" duration="6667000" />
-      <workItem from="1710752775808" duration="9941000" />
+      <workItem from="1710752775808" duration="14366000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -231,7 +233,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710764537744</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="feat: added linear regression">
+      <option name="closed" value="true" />
+      <created>1710768153775</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1710768153775</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,11 +266,12 @@
     <MESSAGE value="Merged master" />
     <MESSAGE value="feat: added inserting into db again" />
     <MESSAGE value="feat: added function to get data by region and instrument" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: added function to get data by region and instrument" />
+    <MESSAGE value="feat: added linear regression" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: added linear regression" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/big_data_challenge$main.coverage" NAME="main Coverage Results" MODIFIED="1710600741992" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/big_data$main.coverage" NAME="main Coverage Results" MODIFIED="1710767603356" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/big_data$main.coverage" NAME="main Coverage Results" MODIFIED="1710774174094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/big_data$readFiles.coverage" NAME="readFiles Coverage Results" MODIFIED="1710755489263" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/big_data_challenge$Link.coverage" NAME="Link Coverage Results" MODIFIED="1708200070503" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
     <SUITE FILE_PATH="coverage/big_data_challenge$readFiles.coverage" NAME="readFiles Coverage Results" MODIFIED="1707823516603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
