@@ -65,7 +65,7 @@ def process_and_store_data(file_path, easter_egg_counter):
             data_object, easter_egg_counter = prepare_data_object(file_path, dataset_group, region_name,
                                                                   instrument_name, easter_egg_counter)
 
-            # insert_into_mongodb(data_object)
+            insert_into_mongodb(data_object)
 
         return region_name, instrument_name, easter_egg_counter, None
     except Exception as e:

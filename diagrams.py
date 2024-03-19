@@ -29,8 +29,8 @@ def create_regression_scatter_plot(x_test, y_test, y_pred):
     plt.scatter(x_test, y_test, color='red', label='Tatsächliche Werte')
     plt.plot(x_test, y_pred, color='blue', linewidth=2, label='Vorhersagen')
     plt.xlabel('Timestamp')
-    plt.ylabel('magnetization')
-    plt.title('Lineare Regression - Magnetisierung vs. Timestamps')
+    plt.ylabel('Velocity')
+    plt.title('Lineare Regression - Velocity vs. Timestamps')
     plt.legend()
     plt.show()
 
@@ -47,3 +47,25 @@ def create_plot(x_axis_values, y_axis_values, x_axis_name, y_axis_name, variant)
 
     plt.legend()
     plt.show()
+
+
+def compare_datasets(data):
+    x_file = "fc616e10-4b61-46e5-9205-52722424aa35.h5"
+    y_file = "fc616e10-4b61-46e5-9205-52722424aa35.h5"
+    x_axis_dataset = "timestamp"
+    y_axis_dataset = "velocity"
+    diagram_variant = "scatter" # "scatter" oder "line"
+    x_axis_list = []
+    y_axis_list = []
+    for dataset_object in data:
+        if dataset_object["file_name"] == x_file:
+            x_axis_list = dataset_object["datasets"][x_axis_dataset]  # Werte aus dem gewünschten Dataset extrahieren
+        if dataset_object["file_name"] == y_file:
+            y_axis_list = dataset_object["datasets"][y_axis_dataset]  # Werte aus dem gewünschten Dataset extrahieren
+    # Anpassung der Längen der Listen, nachdem beide initialisiert wurden
+    if len(x_axis_list) > len(y_axis_list):
+        x_axis_list = x_axis_list[:len(y_axis_list)]
+    else:
+        y_axis_list = y_axis_list[:len(x_axis_list)]
+
+    create_plot(x_axis_list, y_axis_list, x_axis_dataset, y_axis_dataset, diagram_variant)

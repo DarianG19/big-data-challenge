@@ -1,11 +1,9 @@
-import numpy as np
-from matplotlib import pyplot as plt
-from scipy.signal import savgol_filter
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
 import pandas as pd
-from scipy import signal
+from matplotlib import pyplot as plt
 from numpy.polynomial.polynomial import Polynomial
+from scipy import signal
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
 
 from diagrams import create_regression_scatter_plot
 
