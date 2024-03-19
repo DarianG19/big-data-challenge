@@ -22,6 +22,15 @@ def insert_into_mongodb(data_dict):
         client.close()
 
 
+def get_data():
+    collection = database['dataWA']
+    try:
+        return collection.find()
+    except Exception as e:
+        print(f"Fehler beim Abrufen der Daten: {e}")
+        return []
+
+
 def get_data_for_specific_region_and_instrument(region, instrument):
     collection = database['dataWithoutAusreißer']
 

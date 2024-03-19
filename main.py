@@ -1,6 +1,5 @@
-from diagrams import create_plot
-from storing_files import read_and_store_locale_files
-from mongo_db import get_data_for_specific_region_and_instrument
+from mongo_db import get_data
+from utils.math_helpers import detrending
 
 
 def main():
@@ -8,18 +7,19 @@ def main():
     # read_and_store_locale_files('./dataset')
 
     # Mit korrigierten Daten aus DB arbeiten
-    data = list(get_data_for_specific_region_and_instrument('asia', 'dolphin'))
+    data = list(get_data())
     for data_object in data:
         print(
-            f"{data_object['file_name']}: {data_object['datasets'].keys()}")  # Um zu überprüfen, wie die Datasets heißen, da diese noch nicht formatiert in der DB liegen
+            f"{data_object['file_name']}: {data_object['datasets'].keys()}")  # Um zu überprüfen, wie die Datasets
+        # heißen, da diese noch nicht formatiert in der DB liegen
 
-    x_file = "012dd33a-c1a7-4e9d-91cb-7de11e82f976.h5"
-    y_file = "012dd33a-c1a7-4e9d-91cb-7de11e82f976.h5"
+    x_file = "007ff213-9b5d-4243-9c8b-5eae997ac0ee.h5"
+    y_file = "007ff213-9b5d-4243-9c8b-5eae997ac0ee.h5"
 
     x_axis_dataset = "timestamp"
-    y_axis_dataset = "velocity"
+    y_axis_dataset = "magnetization"
 
-    diagram_variant = "line"
+    # diagram_variant = "scatter" # "scatter
 
     x_axis_list = []
     y_axis_list = []
@@ -37,7 +37,9 @@ def main():
         y_axis_list = y_axis_list[:len(x_axis_list)]
 
     print(len(x_axis_list), len(y_axis_list))
-    create_plot(x_axis_list, y_axis_list, x_axis_dataset, y_axis_dataset, diagram_variant)
+    # create_plot(x_axis_list, y_axis_list, x_axis_dataset, y_axis_dataset, diagram_variant)
+
+    detrending(x_axis_list, y_axis_list)
 
 
 if __name__ == '__main__':

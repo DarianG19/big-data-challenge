@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b93731bc-ea98-450b-bfa6-1a49ec889262" name="Changes" comment="feat: undependent scatter plot">
-      <change beforePath="$PROJECT_DIR$/diagrams.py" beforeDir="false" afterPath="$PROJECT_DIR$/diagrams.py" afterDir="false" />
+    <list default="true" id="b93731bc-ea98-450b-bfa6-1a49ec889262" name="Changes" comment="feat: added variants">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -116,7 +116,7 @@
       <workItem from="1709200691017" duration="485000" />
       <workItem from="1710255115563" duration="39000" />
       <workItem from="1710587125673" duration="6667000" />
-      <workItem from="1710752775808" duration="20851000" />
+      <workItem from="1710752775808" duration="22071000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -270,7 +270,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710781633930</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="feat: added variants">
+      <option name="closed" value="true" />
+      <created>1710781944221</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1710781944221</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -300,11 +308,12 @@
     <MESSAGE value="fix: bug opening files" />
     <MESSAGE value="fix: further fixes" />
     <MESSAGE value="feat: undependent scatter plot" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: undependent scatter plot" />
+    <MESSAGE value="feat: added variants" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: added variants" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/big_data_challenge$main.coverage" NAME="main Coverage Results" MODIFIED="1710600741992" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/big_data$main.coverage" NAME="main Coverage Results" MODIFIED="1710781682925" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/big_data$main.coverage" NAME="main Coverage Results" MODIFIED="1710782969223" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/big_data$readFiles.coverage" NAME="readFiles Coverage Results" MODIFIED="1710755489263" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/big_data_challenge$Link.coverage" NAME="Link Coverage Results" MODIFIED="1708200070503" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
     <SUITE FILE_PATH="coverage/big_data_challenge$readFiles.coverage" NAME="readFiles Coverage Results" MODIFIED="1707823516603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
