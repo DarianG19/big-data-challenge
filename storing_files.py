@@ -5,6 +5,7 @@ import h5py
 from mongo_db import insert_into_mongodb
 from utils.format_strings import format_string
 from utils.check_numeric import check_if_numeric
+from utils.tukey_outlier_detection import delete_outliers
 
 
 def list_files_in_path(path):
@@ -64,6 +65,9 @@ def process_and_store_data(file_path, easter_egg_counter):
 
             data_object, easter_egg_counter = prepare_data_object(file_path, dataset_group, region_name,
                                                                   instrument_name, easter_egg_counter)
+
+            # Prozessiere die Datensätze für Ausreißer
+            data_object = delete_outliers(data_object)
 
             insert_into_mongodb(data_object)
 
