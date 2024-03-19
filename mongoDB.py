@@ -38,13 +38,14 @@ def get_data_from_mongodb(collection_name):
 
     # Daten aus der MongoDB abrufen und Arrays füllen
     for data_object in collection.find({"instrument": "pufferfish", "region": "australia"}):
-        # print("Data object:", data_object)  # Debugging-Anweisung
         if "datasets" in data_object:
             datasets = data_object["datasets"]
             for dataset in datasets:
-                # print("Dataset:", dataset)  # Debugging-Anweisung
-                x_array.append(dataset["distance"])
-                y_array.append(dataset["magnetization"])
+                # Überprüfen, ob "distance" und "magnetization" in diesem Dataset vorhanden sind
+                if dataset == "magnetization":
+                    y_array.append(dataset)
+                if dataset == "distance":
+                    x_array.append(dataset)
 
     # Verbindung zur MongoDB schließen
     client.close()

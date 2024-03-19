@@ -1,8 +1,9 @@
 import h5py
 import os
 from utils.format_strings import format_string
-from utils.tukey_outlier_detection import process_datasets
+from utils.tukey_outlier_detection import delete_outliers
 from utils.check_numeric import check_if_numeric
+from mongoDB import insert_into_mongodb
 
 
 def list_files_in_path(path):
@@ -56,10 +57,10 @@ def read_and_store_file(file_path, easter_egg_counter):
                     data_object['datasets'][formatted_dataset_name] = data_list
 
             # Prozessiere die Datensätze für Ausreißer
-            # data_object = process_datasets(data_object)
+            data_object = delete_outliers(data_object)
 
             # Füge das Objekt zur MongoDB hinzu
-            # insert_into_mongodb(data_object, file_path)
+            insert_into_mongodb(data_object)
 
             return region_name, instrument_name, easter_egg_counter, None
     except Exception as e:
