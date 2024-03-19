@@ -33,7 +33,7 @@ def run_regression(x_list, y_list):
     return y_pred.tolist()
 
 
-def detrending(x_list, y_list):
+def detrending(y_list):
     detrended_y_list = signal.detrend(y_list)
 
     # Plot der Originaldaten und der detrendeten Daten
@@ -56,7 +56,23 @@ def detrending(x_list, y_list):
     # plt.legend()
     # plt.show()
 
-    return x_list, detrended_y_list
+    return detrended_y_list
+
+
+def detrending_with_regression(time_array, data_array):
+    coefficients = np.polyfit(time_array, data_array, 1)  # '1' steht für den Grad des Polynoms, linear in diesem Fall
+    trend = np.polyval(coefficients, time_array)
+
+    # Detrendete Daten berechnen, indem der Trend von den Originaldaten abgezogen wird
+    detrended_data = data_array - trend
+
+    # plt.figure(figsize=(10, 5))
+    # plt.scatter(time_array, data_array, label='Originaldaten')
+    # plt.plot(time_array, trend, label='Trend', linestyle='--')
+    # plt.scatter(time_array, detrended_data, label='Detrendete Daten', marker='o')
+    # plt.legend()
+    # plt.show()
+    return detrended_data
 
 
 def detrending_polynomial(x_list, y_list):
@@ -76,6 +92,3 @@ def detrending_polynomial(x_list, y_list):
     plt.title('Nach polynomischem Detrending')
     plt.tight_layout()
     plt.show()
-
-
-
