@@ -7,14 +7,14 @@ client = MongoClient(uri)
 database = client['BigDataProject']
 
 
-def insert_into_mongodb(data_dict):
+def insert_into_mongodb(data_dict, cluster_name):
     # Erstelle einen neuen Client und verbinde dich mit dem Server
-    collection = database['data2']
+    collection = database[cluster_name]
 
     try:
         # Füge die Daten in MongoDB ein
         collection.insert_one(data_dict)
-        print(f'Daten erfolgreich in MongoDB eingefügt')
+        print(f'Daten erfolgreich in MongoDB "{cluster_name}" eingefügt')
 
     except Exception as e:
         print(f'Fehler beim Einfügen in MongoDB: {e}')
