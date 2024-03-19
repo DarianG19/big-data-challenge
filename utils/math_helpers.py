@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 from numpy.polynomial.polynomial import Polynomial
@@ -75,4 +76,6 @@ def detrending_polynomial(x_list, y_list):
     plt.title('Nach polynomischem Detrending')
     plt.tight_layout()
     plt.show()
+
+
 

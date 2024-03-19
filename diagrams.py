@@ -69,3 +69,6 @@ def compare_datasets(data):
         y_axis_list = y_axis_list[:len(x_axis_list)]
 
     create_plot(x_axis_list, y_axis_list, x_axis_dataset, y_axis_dataset, diagram_variant)
+
+
+
