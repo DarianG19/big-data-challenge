@@ -1,11 +1,8 @@
 import h5py
 import os
-from insertDataInMongoDB import insert_into_mongodb
 from utils.format_strings import format_string
 from utils.tukey_outlier_detection import process_datasets
 from utils.check_numeric import check_if_numeric
-from diagrams import plot_regions_with_instruments
-from diagrams import create_diagram
 
 
 def list_files_in_path(path):
@@ -49,9 +46,9 @@ def read_and_store_file(file_path, easter_egg_counter):
                         data_list.append(entry)
                     except ValueError:
                         easter_egg_counter += 1
-                        print(
-                            f"Das Dataset '{dataset_name}' am Index {index} in '{os.path.basename(file_path)}"
-                            f"' hat einen nicht-numerischen Wert '{entry}'.")
+                        # print(
+                        #     f"Das Dataset '{dataset_name}' am Index {index} in '{os.path.basename(file_path)}"
+                        #     f"' hat einen nicht-numerischen Wert '{entry}'.")
                         # TODO: Dateien entfernen aus dem gesamten Dataset
 
                     # Wenden die format_string-Funktion auf den Namen des Datasets an
@@ -59,10 +56,10 @@ def read_and_store_file(file_path, easter_egg_counter):
                     data_object['datasets'][formatted_dataset_name] = data_list
 
             # Prozessiere die Datensätze für Ausreißer
-            data_object = process_datasets(data_object)
+            # data_object = process_datasets(data_object)
 
             # Füge das Objekt zur MongoDB hinzu
-            insert_into_mongodb(data_object, file_path)
+            # insert_into_mongodb(data_object, file_path)
 
             return region_name, instrument_name, easter_egg_counter, None
     except Exception as e:

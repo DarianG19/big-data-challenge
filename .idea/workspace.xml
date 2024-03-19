@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b93731bc-ea98-450b-bfa6-1a49ec889262" name="Changes" comment="Merged master &amp; some fixes &amp; added diagramm">
-      <change beforePath="$PROJECT_DIR$/.idea/big-data.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/big-data.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insertDataInMongoDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/insertDataInMongoDB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagrams.py" beforeDir="false" afterPath="$PROJECT_DIR$/diagrams.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/insertDataInMongoDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/mongoDB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readFiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/readFiles.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -297,7 +297,8 @@
       <workItem from="1710752775808" duration="682000" />
       <workItem from="1710792393234" duration="2903000" />
       <workItem from="1710795402784" duration="2815000" />
-      <workItem from="1710798461667" duration="1523000" />
+      <workItem from="1710798461667" duration="1922000" />
+      <workItem from="1710836929755" duration="5697000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -403,7 +404,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710795367684</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Merged master &amp; some fixes &amp; added diagramm">
+      <option name="closed" value="true" />
+      <created>1710800367513</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1710800367513</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -431,7 +440,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/big_data_challenge$Link.coverage" NAME="Link Coverage Results" MODIFIED="1708200070503" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
-    <SUITE FILE_PATH="coverage/big_data_challenge$main.coverage" NAME="main Coverage Results" MODIFIED="1710798913794" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/big_data_challenge$main.coverage" NAME="main Coverage Results" MODIFIED="1710841674423" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/big_data_challenge$readFiles.coverage" NAME="readFiles Coverage Results" MODIFIED="1707823516603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

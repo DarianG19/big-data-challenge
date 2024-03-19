@@ -11,8 +11,8 @@ def create_diagram(x_array, y_array):
     plt.plot(x_array, y_array)
 
     plt.title('Diagramm')
-    plt.xlabel('')
-    plt.ylabel('Distance')
+    plt.xlabel('Distance')
+    plt.ylabel('Magnetization')
 
     plt.show()
 
