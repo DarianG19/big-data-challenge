@@ -1,3 +1,4 @@
+import math
 import re
 import numpy as np
 
@@ -41,7 +42,7 @@ def check_and_edit_not_numeric(wert):
         wert = wert.decode('utf-8')
 
     # Wenn 'wert' ein NaN ist, ersetze es durch 0
-    if wert == "nan" or wert == "NaN" or wert == "NAN" or wert == "Nan":
+    if math.isnan(wert):
         return 0
 
     # Ab hier ist 'wert' entweder ein String oder war ursprünglich ein String
