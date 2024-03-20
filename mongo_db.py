@@ -4,12 +4,12 @@ from utils.format_strings import format_string
 
 
 def insert_into_mongodb(data_dict):
-    if data_dict.get('instrument') == "pufferfish" and data_dict.get('region') == "australia":
+    if data_dict.get('instrument') == "dog" and data_dict.get('region') == "europe":
         # Erstelle einen neuen Client und verbinde dich mit dem Server
         uri = "mongodb+srv://noahkuse:BigDMitBigD@bigdataproject.f6aka7m.mongodb.net/?retryWrites=true&w=majority"
         client = MongoClient(uri)
         database = client['BigDataProject']
-        collection = database['dataWA']
+        collection = database['dataEuropeDog']
 
         try:
             # Füge die Daten in MongoDB ein
