@@ -1,4 +1,5 @@
 import re
+import numpy as np
 
 
 def check_if_numeric(wert):
@@ -19,7 +20,11 @@ def check_if_numeric(wert):
         # Überprüft, ob der Wert einem Timestamp-Format entspricht
         timestamp_pattern = r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?.*$'
 
-        if re.match(timestamp_pattern, wert):
+        if len(wert) == 18:
+            wert = wert + "0"
+            if re.match(timestamp_pattern, wert):
+                return True
+        elif re.match(timestamp_pattern, wert):
             return True
         else:
             # Gibt eine Fehlermeldung aus, wenn der Wert weder numerisch noch ein Timestamp ist
@@ -35,6 +40,10 @@ def check_and_edit_not_numeric(wert):
     if isinstance(wert, bytes):
         wert = wert.decode('utf-8')
 
+    # Wenn 'wert' ein NaN ist, ersetze es durch 0
+    if wert == "nan":
+        return 0
+
     # Ab hier ist 'wert' entweder ein String oder war ursprünglich ein String
     try:
         # Versucht, den Wert in eine Fließkommazahl zu konvertieren
@@ -43,8 +52,12 @@ def check_and_edit_not_numeric(wert):
         # Überprüft, ob der Wert einem Timestamp-Format entspricht
         timestamp_pattern = r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?.*$'
 
-        if re.match(timestamp_pattern, wert):
-            return float(wert)
+        if len(wert) == 18:
+            wert = wert + "0"
+            if re.match(timestamp_pattern, wert):
+                return True
+        elif re.match(timestamp_pattern, wert):
+            return True
         else:
             # Gibt eine Fehlermeldung aus, wenn der Wert weder numerisch noch ein Timestamp ist
             raise ValueError(f"Fehler: '{wert}' ist weder ein numerischer Wert noch ein gültiger Timestamp.")
