@@ -1,4 +1,5 @@
 from mongo_db import get_data
+from storing_files import read_and_store_locale_files
 
 
 def main():
