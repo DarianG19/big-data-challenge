@@ -6,7 +6,7 @@ from datetime import datetime
 
 # Die restlichen Importe und Hilfsfunktionen bleiben unverändert
 
-def plot_dataset_with_timestamps(timestamps, values, dataset_name, file_name):
+def plot_dataset_with_timestamps(timestamps, values, dataset_name):
     # Konvertiere Timestamps von Bytes zu Strings und dann zu datetime-Objekten, falls notwendig
     timestamps = [datetime.strptime(ts.decode('utf-8'), "%Y-%m-%dT%H:%M:%S") if isinstance(ts, bytes) else ts for ts in
                   timestamps]
@@ -14,7 +14,7 @@ def plot_dataset_with_timestamps(timestamps, values, dataset_name, file_name):
     # Erstelle das Plot
     plt.figure(figsize=(10, 6))
     plt.scatter(timestamps, values, marker='.', linestyle='-')
-    plt.title(f'{dataset_name} over Time in {file_name}')
+    plt.title(f'{dataset_name} over Time')
     plt.xlabel('Timestamp')
     plt.ylabel(dataset_name.capitalize())
 

@@ -69,7 +69,7 @@ def process_and_store_data(file_path, easter_egg_counter):
             # Prozessiere die Datensätze für Ausreißer
             data_object = delete_outliers(data_object)
 
-            insert_into_mongodb(data_object, "dataWA")
+            insert_into_mongodb(data_object, "dataWAeuropeDOG", "dog", "europe")
 
         return region_name, instrument_name, easter_egg_counter, None
     except Exception as e:

@@ -7,8 +7,8 @@ client = MongoClient(uri)
 database = client['BigDataProject']
 
 
-def insert_into_mongodb(data_dict, cluster_name):
-    if data_dict.get('instrument') == "pufferfish" and data_dict.get('region') == "australia":
+def insert_into_mongodb(data_dict, cluster_name, instrument, region):
+    if data_dict.get('instrument') == instrument and data_dict.get('region') == region:
         collection = database[cluster_name]
 
         try:
@@ -23,7 +23,7 @@ def insert_into_mongodb(data_dict, cluster_name):
 
 
 def get_data():
-    collection = database['dataWA']
+    collection = database['dataEuropeDog']
     try:
         return collection.find()
     except Exception as e:
