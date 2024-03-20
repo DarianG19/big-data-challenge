@@ -8,18 +8,18 @@ database = client['BigDataProject']
 
 
 def insert_into_mongodb(data_dict, cluster_name):
-    # Erstelle einen neuen Client und verbinde dich mit dem Server
-    collection = database[cluster_name]
+    if data_dict.get('instrument') == "pufferfish" and data_dict.get('region') == "australia":
+        collection = database[cluster_name]
 
-    try:
-        # Füge die Daten in MongoDB ein
-        collection.insert_one(data_dict)
-        print(f'Daten erfolgreich in MongoDB "{cluster_name}" eingefügt')
+        try:
+            # Füge die Daten in MongoDB ein
+            collection.insert_one(data_dict)
+            print(f'Daten erfolgreich in MongoDB "{cluster_name}" eingefügt')
 
-    except Exception as e:
-        print(f'Fehler beim Einfügen in MongoDB: {e}')
-    finally:
-        client.close()
+        except Exception as e:
+            print(f'Fehler beim Einfügen in MongoDB: {e}')
+        finally:
+            client.close()
 
 
 def get_data():
@@ -41,4 +41,3 @@ def get_data_for_specific_region_and_instrument(region, instrument):
     except Exception as e:
         print(f"Fehler beim Abrufen der Daten: {e}")
         return []
-
