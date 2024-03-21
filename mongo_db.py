@@ -24,7 +24,7 @@ def insert_into_mongodb(data_dict):
 
 
 def get_data():
-    collection = database['dataWA']
+    collection = database['dataEuropeDog']
     try:
         return collection.find()
     except Exception as e:

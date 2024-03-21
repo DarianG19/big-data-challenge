@@ -70,11 +70,11 @@ def main():
         # Detrendete Magnetisierungsdaten und Wandstärkendaten hinzufügen
         all_x.extend(wall_thicknesses)
         all_y.extend(detrended_magnetizations_with_regression)
-        # all_y_other.extend(detrended_magnetization)
+        all_y_other.extend(detrended_magnetization)
 
     create_heatmap_seaborn(all_x, all_y)
     polynom_regression(all_x, all_y)
-    # create_heatmap_seaborn(all_x, all_y_other)
+    create_heatmap_seaborn(all_x, all_y_other)
 
     # compare_datasets(data)
 
