@@ -3,6 +3,7 @@ import numpy as np
 from diagrams import create_heatmap_seaborn
 from mongo_db import get_data
 from utils.math_helpers import detrending_sklearn
+from utils.curve_fit import analyze_and_visualize_data
 
 
 def main():
@@ -29,7 +30,9 @@ def main():
         all_x.extend(wall_thicknesses)
         all_y.extend(detrended_magnetization)
 
-    create_heatmap_seaborn(all_x, all_y)
+    analyze_and_visualize_data(all_x, all_y)
+
+    # create_heatmap_seaborn(all_x, all_y)
 
 
 if __name__ == '__main__':
