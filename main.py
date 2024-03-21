@@ -2,7 +2,7 @@ import numpy as np
 
 from diagrams import create_heatmap_seaborn
 from mongo_db import get_data
-from utils.math_helpers import detrending, detrending_with_regression, detrending_sklearn
+from utils.math_helpers import detrending_sklearn
 
 
 def main():
@@ -13,7 +13,7 @@ def main():
     for data_object in data:
         print(f"{data_object['file_name']}: {data_object['datasets'].keys()}")
 
-        # Minimale Länge bestimmen, um sicherzustellen, dass beide Arrays gleich lang sind
+        # Minimale Länge bestimmen, um sicherzustellen, dass Arrays gleich lang sind
         min_length = min(len(data_object["datasets"]["timestamp"]), len(data_object["datasets"]["magnetization"]),
                          len(data_object["datasets"]["wall_thickness"]))
 
@@ -34,4 +34,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    # konvertieren()
