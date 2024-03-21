@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import matplotlib.dates as mdates
 from datetime import datetime
+import seaborn as sns
 
-
-# Die restlichen Importe und Hilfsfunktionen bleiben unverändert
 
 def plot_dataset_with_timestamps(timestamps, values, dataset_name):
     # Konvertiere Timestamps von Bytes zu Strings und dann zu datetime-Objekten, falls notwendig
@@ -82,6 +82,7 @@ def create_plot(x_axis_values, y_axis_values, x_axis_name, y_axis_name, variant)
 
 
 def compare_datasets(data):
+    """Aktuell unused"""
     x_file = "fc616e10-4b61-46e5-9205-52722424aa35.h5"
     y_file = "fc616e10-4b61-46e5-9205-52722424aa35.h5"
     x_axis_dataset = "timestamp"
@@ -101,6 +102,38 @@ def compare_datasets(data):
         y_axis_list = y_axis_list[:len(x_axis_list)]
 
     create_plot(x_axis_list, y_axis_list, x_axis_dataset, y_axis_dataset, diagram_variant)
+
+
+def create_heatmap(all_x, all_y):
+    """Aktuell unused"""
+    # Filtere NaN-Werte aus den Daten
+    mask = ~np.isnan(all_x) & ~np.isnan(all_y)  # Erstellt eine Maske für Werte, die in beiden Arrays nicht NaN sind
+    filtered_x = np.array(all_x)[mask]  # Anwenden der Maske auf all_x
+    filtered_y = np.array(all_y)[mask]  # Anwenden der Maske auf all_y
+
+    # Erstellung des 2D-Histogramms mit den gefilterten Daten
+    heatmap, xedges, yedges = np.histogram2d(filtered_x, filtered_y, bins=(500, 500))
+    extent = [np.min(filtered_x), np.max(filtered_x), np.min(filtered_y), np.max(filtered_y)]
+
+    # Heatmap zeichnen
+    plt.clf()
+    plt.imshow(heatmap.T, extent=extent, origin='lower', cmap='hot', aspect="auto")
+    plt.colorbar()
+    plt.show()
+
+
+def create_heatmap_seaborn(all_x, all_y):
+
+    # Erstellung des 2D-Histogramms mit den gefilterten Daten
+    # heatmap, xedges, yedges = np.histogram2d(filtered_x, filtered_y, bins=(500, 500))
+    #
+    # # Seaborn Heatmap erstellen
+    # plt.clf()
+    # sns.heatmap(heatmap, cmap='hot', cbar=True)
+    plot = sns.jointplot(x=all_x, y=all_y, kind='hex', gridsize=30, cmap='plasma', marginal_kws=dict(bins=50))
+    plot.set_axis_labels("Wandstärke", "Magnetisierung")
+    plt.tight_layout()
+    plt.show()
 
 
 

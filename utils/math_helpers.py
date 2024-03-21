@@ -36,27 +36,18 @@ def run_regression(x_list, y_list):
 def detrending(y_list):
     detrended_y_list = signal.detrend(y_list)
 
-    # Plot der Originaldaten und der detrendeten Daten
-    # plt.figure(figsize=(12, 6))
-    # plt.subplot(1, 2, 1)
-    # plt.scatter(x_list, y_list, label='Originaldaten')
-    # plt.title('Originaldaten mit Trend')
-    # plt.xlabel('Zeit')
-    # plt.ylabel('Wert')
-    # plt.legend()
-    #
-    # # Smoothing aktuell doch nicht nötig
-    # # smoothed_y = savgol_filter(detrended_y_list, window_length=51, polyorder=3)
-    #
-    # # Vergleich der Originaldaten, detrendeten und geglätteten Daten
-    # plt.figure(figsize=(12, 6))
-    # plt.scatter(x_list, y_list, label='Originaldaten')
-    # plt.scatter(x_list, detrended_y_list, label='Detrendete Daten')
-    # # plt.scatter(x_list, smoothed_y, label='Geglättete Daten', color='red')
-    # plt.legend()
-    # plt.show()
-
     return detrended_y_list
+
+
+def detrend_magnetizations_with_timestamps(data_obj):
+    detrended_magnetization = []
+    try:
+        detrended_magnetization = detrending(data_obj["datasets"]["magnetization"])
+        # data_obj["datasets"]["magnetization"] = detrended_magnetization
+    except Exception as e:
+        print(e)
+    finally:
+        return detrended_magnetization
 
 
 def detrending_with_regression(time_array, data_array):
