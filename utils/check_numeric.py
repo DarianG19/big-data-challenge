@@ -1,6 +1,5 @@
 import math
 import re
-import numpy as np
 
 
 def check_if_numeric(wert):

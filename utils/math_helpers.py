@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 from numpy.polynomial.polynomial import Polynomial
@@ -32,28 +33,48 @@ def run_regression(x_list, y_list):
     return y_pred.tolist()
 
 
-def detrending(x_list, y_list):
+def detrending(y_list):
     detrended_y_list = signal.detrend(y_list)
 
-    # Plot der Originaldaten und der detrendeten Daten
-    plt.figure(figsize=(12, 6))
-    plt.subplot(1, 2, 1)
-    plt.scatter(x_list, y_list, label='Originaldaten')
-    plt.title('Originaldaten mit Trend')
-    plt.xlabel('Zeit')
-    plt.ylabel('Wert')
-    plt.legend()
+    return detrended_y_list
 
-    # Smoothing aktuell doch nicht nötig
-    # smoothed_y = savgol_filter(detrended_y_list, window_length=51, polyorder=3)
 
-    # Vergleich der Originaldaten, detrendeten und geglätteten Daten
-    plt.figure(figsize=(12, 6))
-    plt.scatter(x_list, y_list, label='Originaldaten')
-    plt.scatter(x_list, detrended_y_list, label='Detrendete Daten')
-    # plt.scatter(x_list, smoothed_y, label='Geglättete Daten', color='red')
-    plt.legend()
-    plt.show()
+def detrend_magnetizations_with_timestamps(data_obj):
+    detrended_magnetization = []
+    try:
+        detrended_magnetization = detrending(data_obj["datasets"]["magnetization"])
+        # data_obj["datasets"]["magnetization"] = detrended_magnetization
+    except Exception as e:
+        print(e)
+    finally:
+        return detrended_magnetization
+
+
+def detrending_with_regression(time_array, data_array):
+    coefficients = np.polyfit(time_array, data_array, 1)  # '1' steht für den Grad des Polynoms, linear in diesem Fall
+    trend = np.polyval(coefficients, time_array)
+
+    # Detrendete Daten berechnen, indem der Trend von den Originaldaten abgezogen wird
+    detrended_data = data_array - trend
+
+    # plt.figure(figsize=(10, 5))
+    # plt.scatter(time_array, data_array, label='Originaldaten')
+    # plt.plot(time_array, trend, label='Trend', linestyle='--')
+    # plt.scatter(time_array, detrended_data, label='Detrendete Daten', marker='o')
+    # plt.legend()
+    # plt.show()
+    return detrended_data
+
+
+def detrending_sklearn(x_values, y_values):
+    try:
+        model = LinearRegression()
+        model.fit(x_values.reshape(-1, 1), y_values)
+
+        residuale = y_values - model.predict(x_values.reshape(-1, 1)) + np.mean(y_values[:20])
+        return list(residuale)
+    except Exception as e:
+        print(f"Error: {e}")  # TODO: manchmal kommt noch "Error: Input y contains NaN
 
 
 def detrending_polynomial(x_list, y_list):
@@ -74,3 +95,23 @@ def detrending_polynomial(x_list, y_list):
     plt.tight_layout()
     plt.show()
 
+
+def polynom_regression(x, y):
+    coefficients = np.polyfit(x, y, 3)
+
+    # Erzeugen Sie ein Polynomobjekt aus den Koeffizienten, um das Polynom einfacher auswerten zu können
+    polynom = np.poly1d(coefficients)
+
+    # Generieren Sie Werte für x, um die Vorhersagen des Modells zu plotten
+    x_lin = np.linspace(min(x), max(x), 500)  # 500 Punkte zwischen dem minimalen und maximalen Wert von x
+
+    # Nutzen Sie das Polynomobjekt, um Vorhersagen basierend auf x_lin zu machen
+    y_pred = polynom(x_lin)
+
+    # Plotten der Originaldaten und der Polynomregressionskurve
+    plt.plot(x_lin, y_pred, color='green', label='Polynomregression 3. Grades')  # Regressionskurve
+    plt.title('Polynomregression 3. Grades')
+    plt.xlabel('Wandstaerke')
+    plt.ylabel('Magnetisierung')
+    plt.legend()
+    plt.show()

@@ -2,14 +2,15 @@ from pymongo.mongo_client import MongoClient
 
 from utils.format_strings import format_string
 
+uri = "mongodb+srv://noahkuse:BigDMitBigD@bigdataproject.f6aka7m.mongodb.net/?retryWrites=true&w=majority"
+client = MongoClient(uri)
+database = client['BigDataProject']
+
 
 def insert_into_mongodb(data_dict):
     if data_dict.get('instrument') == "dog" and data_dict.get('region') == "europe":
         # Erstelle einen neuen Client und verbinde dich mit dem Server
-        uri = "mongodb+srv://noahkuse:BigDMitBigD@bigdataproject.f6aka7m.mongodb.net/?retryWrites=true&w=majority"
-        client = MongoClient(uri)
-        database = client['BigDataProject']
-        collection = database['dataEuropeDogNeu']
+        collection = database['dataEuropeDogNeuNeu']
 
         try:
             # Füge die Daten in MongoDB ein
@@ -23,10 +24,7 @@ def insert_into_mongodb(data_dict):
 
 
 def get_data():
-    uri = "mongodb+srv://noahkuse:BigDMitBigD@bigdataproject.f6aka7m.mongodb.net/?retryWrites=true&w=majority"
-    client = MongoClient(uri)
-    database = client['BigDataProject']
-    collection = database['dataWA']
+    collection = database['dataEuropeDogNeu']
     try:
         return collection.find()
     except Exception as e:
@@ -35,9 +33,6 @@ def get_data():
 
 
 def get_data_for_specific_region_and_instrument(region, instrument):
-    uri = "mongodb+srv://noahkuse:BigDMitBigD@bigdataproject.f6aka7m.mongodb.net/?retryWrites=true&w=majority"
-    client = MongoClient(uri)
-    database = client['BigDataProject']
     collection = database['dataWithoutAusreißer']
 
     query = {'region': format_string(region), 'instrument': format_string(instrument)}
