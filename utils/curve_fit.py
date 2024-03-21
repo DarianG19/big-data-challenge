@@ -22,13 +22,20 @@ def analyze_and_visualize_data(visualization_data_x, visualization_data_y):
     visualization_data_y = np.delete(visualization_data_y, indices_to_delete)
 
     # Die Funktion, die an die Daten angepasst werden soll
-    def modell_funktion_polynom(x, a, b, c, d):
+
+    def modell_funktion_polynom_3(x, a, b, c, d):
         return a * x ** 3 + b * x ** 2 + c * x + d
 
-    # curve_fit benutzen, um die Parameter a und b zu finden
-    parameter, parameter_kovarianz = curve_fit(modell_funktion_polynom, visualization_data_x, visualization_data_y)
+    def modell_funktion_sinus(x, a, b, c, d):
+        return a * np.sin(b * x + c) + d
 
-    y_vorhersage = modell_funktion_polynom(visualization_data_x, *parameter)
+    def modell_funktion_cosinus(x, a, b, c, d):
+        return a * np.cos(b * x + c) + d
+
+    # curve_fit benutzen, um die Parameter a und b zu finden
+    parameter, parameter_kovarianz = curve_fit(modell_funktion_polynom_3, visualization_data_x, visualization_data_y)
+
+    y_vorhersage = modell_funktion_polynom_3(visualization_data_x, *parameter)
 
     ss_res = np.sum((visualization_data_y - y_vorhersage) ** 2)
     ss_tot = np.sum((visualization_data_y - np.mean(visualization_data_y)) ** 2)
@@ -39,9 +46,9 @@ def analyze_and_visualize_data(visualization_data_x, visualization_data_y):
     print("Gefundene Parameter:", parameter)
 
     # Die gefundene Kurve zeichnen
-    plot = sns.jointplot(x=visualization_data_x, y=visualization_data_y, kind='hex', gridsize=30, cmap="plasma",
+    plot = sns.jointplot(x=visualization_data_x, y=visualization_data_y, kind='hex', gridsize=100, cmap="Blues",
                          marginal_kws=dict(bins=50))
-    plt.plot(visualization_data_x, modell_funktion_polynom(visualization_data_x, *parameter), label='Polynom 3. Grades',
+    plt.plot(visualization_data_x, modell_funktion_polynom_3(visualization_data_x, *parameter), label='Polynom 3. Grades',
              color='red')
     plot.set_axis_labels("Wandstärke", "Magnetisierung")
     plt.legend()

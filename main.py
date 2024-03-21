@@ -32,7 +32,7 @@ def main():
 
     analyze_and_visualize_data(all_x, all_y)
 
-    # create_heatmap_seaborn(all_x, all_y)
+    create_heatmap_seaborn(all_x, all_y)
 
 
 if __name__ == '__main__':
