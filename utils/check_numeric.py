@@ -41,9 +41,14 @@ def check_and_edit_not_numeric(wert):
     if isinstance(wert, bytes):
         wert = wert.decode('utf-8')
 
-    # Wenn 'wert' ein NaN ist, ersetze es durch 0
-    if math.isnan(wert):
-        return 0
+
+    try:
+        if math.isnan(wert):
+            wert = 0
+    except Exception as e:
+        # Wenn 'wert' ein NaN ist, ersetze es durch 0
+        if wert.lower() in ["nan", "NaN"]:
+            wert = 0
 
     # Ab hier ist 'wert' entweder ein String oder war ursprünglich ein String
     try:
