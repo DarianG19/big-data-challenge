@@ -9,7 +9,7 @@ def insert_into_mongodb(data_dict):
         uri = "mongodb+srv://noahkuse:BigDMitBigD@bigdataproject.f6aka7m.mongodb.net/?retryWrites=true&w=majority"
         client = MongoClient(uri)
         database = client['BigDataProject']
-        collection = database['dataEuropeDog']
+        collection = database['dataEuropeDogNeu']
 
         try:
             # Füge die Daten in MongoDB ein
