@@ -19,9 +19,12 @@ def plot_dataset_with_timestamps(timestamps, values, dataset_name):
     plt.ylabel(dataset_name.capitalize())
 
     # Formatierung der X-Achse als Datum
-    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%dT%H:%M:%S'))
-    plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
-    plt.gcf().autofmt_xdate()  # Rotation
+    # plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%dT%H:%M:%S'))
+    # plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
+    try:
+        plt.gcf().autofmt_xdate()  # Rotation
+    except Exception as e:
+        print("Hier gabs ein Problem")
 
     plt.show()
 
@@ -73,9 +76,9 @@ def create_plot(x_axis_values, y_axis_values, x_axis_name, y_axis_name, variant)
     plt.title(f"Verhaeltnis - {y_axis_name} vs. {x_axis_name}")
 
     if variant == "scatter":
-        plt.scatter(x_axis_values, y_axis_values, marker='.', linestyle='-', color='blue', label="Werte")
+        plt.scatter(x_axis_values, y_axis_values, marker='.', color='blue', label="Werte")
     elif variant == "line":
-        plt.plot(x_axis_values, y_axis_values, color='blue', linewidth=1, label='Werte')
+        plt.plot(x_axis_values, y_axis_values, color='blue', linestyle='-', linewidth=1, label='Werte')
 
     plt.legend()
     plt.show()

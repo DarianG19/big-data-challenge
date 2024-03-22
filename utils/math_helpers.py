@@ -115,3 +115,7 @@ def polynom_regression(x, y):
     plt.ylabel('Magnetisierung')
     plt.legend()
     plt.show()
+
+
+def calculateMeanMinMax(array):
+    return np.mean(array), np.min(array), np.max(array)
