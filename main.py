@@ -1,7 +1,8 @@
 import numpy as np
 
-from diagrams import create_heatmap_seaborn
+from diagrams import create_heatmap_seaborn, create_plot
 from mongo_db import get_data
+from utils.format_strings import sort_data
 from utils.math_helpers import detrending_sklearn
 
 
@@ -9,6 +10,8 @@ def main():
     # read_and_store_locale_files("./dataset")
     all_x = []
     all_y = []
+    unsorted_x = []
+    unsorted_y = []
     data = list(get_data())
     for data_object in data:
         print(f"{data_object['file_name']}: {data_object['datasets'].keys()}")
@@ -22,6 +25,9 @@ def main():
         magnetizations = np.array(data_object["datasets"]["magnetization"][:min_length])
         wall_thicknesses = np.array(data_object["datasets"]["wall_thickness"][:min_length])
 
+        unsorted_x.append(timestamps)
+        unsorted_y.append(magnetizations)
+
         # Detrending durchführen
         detrended_magnetization = detrending_sklearn(timestamps, magnetizations)
 
@@ -29,7 +35,9 @@ def main():
         all_x.extend(wall_thicknesses)
         all_y.extend(detrended_magnetization)
 
-    create_heatmap_seaborn(all_x, all_y)
+    sorted_x, sorted_y = sort_data(unsorted_x, unsorted_y)
+    create_plot(sorted_x, sorted_y, "Timestamps", "Mangetizations", "line")
+    # create_heatmap_seaborn(all_x, all_y)
 
 
 if __name__ == '__main__':
