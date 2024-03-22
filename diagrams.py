@@ -130,7 +130,7 @@ def create_heatmap_seaborn(all_x, all_y):
     # # Seaborn Heatmap erstellen
     # plt.clf()
     # sns.heatmap(heatmap, cmap='hot', cbar=True)
-    plot = sns.jointplot(x=all_x, y=all_y, kind='hex', gridsize=30, cmap='plasma', marginal_kws=dict(bins=50))
+    plot = sns.jointplot(x=all_x, y=all_y, kind='scatter', marginal_kws=dict(bins=50))
     plot.set_axis_labels("Wandstärke", "Magnetisierung")
     plt.tight_layout()
     plt.show()

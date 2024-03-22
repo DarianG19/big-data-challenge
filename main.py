@@ -1,5 +1,6 @@
 import numpy as np
 
+from clustering import clustering
 from diagrams import create_heatmap_seaborn
 from mongo_db import get_data
 from utils.math_helpers import detrending_sklearn
@@ -8,6 +9,7 @@ from utils.math_helpers import detrending_sklearn
 def main():
     # read_and_store_locale_files("./dataset")
     all_x = []
+    clustered_x = []
     all_y = []
     data = list(get_data())
     for data_object in data:
@@ -30,6 +32,7 @@ def main():
         all_y.extend(detrended_magnetization)
 
     create_heatmap_seaborn(all_x, all_y)
+    clustering(all_x, all_y)
 
 
 if __name__ == '__main__':
